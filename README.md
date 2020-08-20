@@ -72,4 +72,4 @@ client.connect localhost:28015
 
 * [Getting Started with uMod](https://umod.org/documentation/getting-started)
 
-* Bind Chroma to [RustHooks.cs] game events
+* Bind Chroma to [RustHooks.cs](https://github.com/OxideMod/Oxide.Rust/blob/develop/src/RustHooks.cs) game events
