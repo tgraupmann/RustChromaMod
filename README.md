@@ -4,6 +4,8 @@ This is the  Chroma RGB mod for RUST. This allows a RUST client to control your 
 
 # Guide
 
+## Server Setup
+
 * Setup [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD)
 
 * Setup the [RUST Dedicated Server](https://developer.valvesoftware.com/wiki/Rust_Dedicated_Server)
