@@ -60,7 +60,7 @@ RustDedicated.exe -batchmode +server.ip 0.0.0.0 +server.port 28015 +server.tickr
 
 * Connect to the dedicated server (method 1):
 
-**Note: Localhost didn't want to connect in the case you try to run a dedicated server and client on the same machine, that didn't work.
+**Note: Localhost didn't want to connect in the case you try to run a dedicated server and client on the same machine, that didn't work.**
 
 ```
 connect <SERVER_IP_ADDRESS>:28015
@@ -77,3 +77,7 @@ client.connect <SERVER_IP_ADDRESS>:28015
 * [Getting Started with uMod](https://umod.org/documentation/getting-started)
 
 * Bind Chroma to [RustHooks.cs](https://github.com/OxideMod/Oxide.Rust/blob/develop/src/RustHooks.cs) game events
+
+## Setup
+
+* Copy [RustChromaMod.cs](oxide/plugins/RustChromaMod.cs) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
