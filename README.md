@@ -42,3 +42,20 @@ login anonymous
 * Select install folder: `force_install_dir C:\steamcmd\steamapps\rust_server`
 
 * Run: `app_update 258550` validate﻿ to download the public branch of rust dedicated server
+
+* Launch the dedicated server:
+
+```
+cd C:\steamcmd\steamapps\rust_server\
+RustDedicated.exe -batchmode +server.ip 0.0.0.0 +server.port 28015 +server.tickrate 10 +server.hostname "RUST Chroma Mod"
+```
+
+### RUST Game Client
+
+* On the main menu open the console with `F1`
+
+* Connect to the server:
+
+```
+connect 127.0.0.1:28015
+```
