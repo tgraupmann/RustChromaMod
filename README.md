@@ -37,6 +37,8 @@ login anonymous
 
 * Log in with a Steam account or anonymously: `login username` or `login anonymous`
 
-* Select install folder: `force_install_dir PATH:\SteamCMD\rust_server\`
+* Make the install folder: `C:\steamcmd\steamapps\rust_server`
+
+* Select install folder: `force_install_dir C:\steamcmd\steamapps\rust_server`
 
 * Run: `app_update 258550` validate﻿ to download the public branch of rust dedicated server
