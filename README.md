@@ -37,25 +37,33 @@ login anonymous
 
 * Log in with a Steam account or anonymously: `login username` or `login anonymous`
 
-* Make the install folder: `C:\steamcmd\steamapps\rust_server`
-
-* Select install folder: `force_install_dir C:\steamcmd\steamapps\rust_server`
+* Use a valid install folder (use the fullpath): `force_install_dir C:\steamcmd\steamapps\rust_server`
 
 * Run: `app_update 258550` validate﻿ to download the public branch of rust dedicated server
 
-* Launch the dedicated server:
+* Exit steamcmd with `exit`
+
+### Run the RUST - Dedicated Server
+
+* Launch the RUST dedicated server:
 
 ```
 cd "C:\steamcmd\steamapps\rust_server\"
-RustDedicated.exe -batchmode +server.ip 127.0.0.1 +server.port 28015 +server.tickrate 10 +server.hostname "RUST Chroma Mod" +server.identity "dev_rust_chroma_mod" +server.seed 793197 +server.maxplayers 50 +server.worldsize 3000 +server.saveinterval 600 +rcon.ip 127.0.0.1 +rcon.port 28016 +rcon.password "Your_Rcon_Password" -logfile "logfilename.log"
+RustDedicated.exe -batchmode +server.ip 0.0.0.0 +server.port 28015 +server.tickrate 10 +server.hostname "RUST Chroma Mod" +server.identity "dev_rust_chroma_mod" +server.seed 793197 +server.maxplayers 50 +server.worldsize 3000 +server.saveinterval 600 +rcon.ip 0.0.0.0 +rcon.port 28016 +rcon.password "Your_Rcon_Password" -logfile "logfilename.log"
 ```
 
-### RUST Game Client
+### Run RUST - Game Client
 
 * On the main menu open the console with `F1`
 
-* Connect to the server:
+* Connect to the local server (method 1):
 
 ```
 connect 127.0.0.1:28015
+```
+
+* Connect to the local server (method 2):
+
+```
+client.connect localhost:28015
 ```
