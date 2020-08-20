@@ -68,6 +68,12 @@ connect 127.0.0.1:28015
 client.connect localhost:28015
 ```
 
+**Troubleshoot**
+
+```
+Exception: Couldn't get AppTicket - is Steam down? Please wait and try again.
+```
+
 ## Creating the Chroma RGB Mod
 
 * [Getting Started with uMod](https://umod.org/documentation/getting-started)
