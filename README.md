@@ -45,6 +45,8 @@ login anonymous
 
 ### Run the RUST - Dedicated Server
 
+* Extract [Oxide.Rust.zip](https://umod.org/games/rust) to `C:\steamcmd\steamapps\rust_server`
+
 * Launch the RUST dedicated server:
 
 ```
@@ -56,22 +58,18 @@ RustDedicated.exe -batchmode +server.ip 0.0.0.0 +server.port 28015 +server.tickr
 
 * On the main menu open the console with `F1`
 
-* Connect to the local server (method 1):
+* Connect to the dedicated server (method 1):
+
+**Note: Localhost didn't want to connect in the case you try to run a dedicated server and client on the same machine, that didn't work.
 
 ```
-connect 127.0.0.1:28015
+connect <SERVER_IP_ADDRESS>:28015
 ```
 
 * Connect to the local server (method 2):
 
 ```
-client.connect localhost:28015
-```
-
-**Troubleshoot**
-
-```
-Exception: Couldn't get AppTicket - is Steam down? Please wait and try again.
+client.connect <SERVER_IP_ADDRESS>:28015
 ```
 
 ## Creating the Chroma RGB Mod
