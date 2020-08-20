@@ -67,3 +67,9 @@ connect 127.0.0.1:28015
 ```
 client.connect localhost:28015
 ```
+
+## Creating the Chroma RGB Mod
+
+* [Getting Started with uMod](https://umod.org/documentation/getting-started)
+
+* Bind Chroma to [RustHooks.cs] game events
