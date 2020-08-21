@@ -101,17 +101,23 @@ namespace Oxide.Plugins
 						HttpListenerContext context = _mHttpListener.GetContext();
 						if (null != context)
 						{						
-							string response = "Hello World 1.1!";
+							string response = string.Empty;
 
-							/*
 							if (string.IsNullOrEmpty(context.Request.Url.LocalPath))
 							{
 							}
-							*/
+							else
+							{
+								response = @"<html>
+<h2>RUST Chroma RGB MOD</h2>
+" + "path: " + context.Request.Url.LocalPath + @"
+</html>";
+							}
 							
 							byte[] bytes = UTF8Encoding.UTF8.GetBytes(response);
 							context.Response.ContentEncoding = Encoding.UTF8;
 							context.Response.AddHeader("ContentType", "utf8");
+							context.Response.AddHeader("Cache-Control", "no-cache");
 							context.Response.OutputStream.Write(bytes, 0, bytes.Length);
 							context.Response.OutputStream.Flush();
 							context.Response.Close();
