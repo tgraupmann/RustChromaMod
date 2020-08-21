@@ -8,6 +8,10 @@ var chromaSDK = new ChromaSDK();
 var chromaIsInitialized = false;
 var browserTabIsVisible = true;
 var pageHadFocus = undefined;
+var lastPlayers = '';
+var lastPlayerState = '';
+var lastServerStatus = '';
+var selectedPlayer = '';
 
 
 function detectChromaSDK() {
@@ -130,14 +134,84 @@ setInterval(function() {
 }, 1000);
 
 
+function getPlayers() {
+  var oReq = new XMLHttpRequest();
+  oReq.timeout = 2000; // time in milliseconds
+  oReq.addEventListener("load", function() {
+	//console.log('players', this.responseText);
+		
+	var json = JSON.parse(this.responseText);
+	//console.log('json', json);
+	
+	var players = '';
+	Object.entries(json).forEach(([key, value]) => {
+		players += ' ';
+		if (selectedPlayer == value) {
+		  players += '<a style="color: #0F0; background-color: #222" onclick="selectedPlayer=\'' + value + '\';">' + value + '</a>';
+		} else {
+		  players += '<a style="color: #000; background-color: #DDD" onclick="selectedPlayer=\'' + value + '\';">' + value + '</a>';
+		}
+	});
+	// only need to display changes
+	if (players != lastPlayers) {
+		lastPlayers = players;
+		$('#divPlayers').html(players);
+	}
+
+    // get next status
+    setTimeout(function() { getPlayers(); }, 100);
+  });
+  oReq.ontimeout = function() {
+    // get next status
+	setTimeout(function() { getPlayers(); }, 1000);
+  };
+  oReq.onerror = function() {
+    // get next status
+	setTimeout(function() { getPlayers(); }, 1000);
+  };
+  oReq.open("GET", "players.json");
+  oReq.send();
+}
+
+
+function getPlayerState() {
+  var oReq = new XMLHttpRequest();
+  oReq.timeout = 2000; // time in milliseconds
+  oReq.addEventListener("load", function() {
+	console.log('playerState', this.responseText);
+	if (lastPlayerState != this.responseText) {
+		lastPlayerState = this.responseText;
+		var json = JSON.parse(this.responseText);
+		console.log('json', json);
+		$('#divPlayerState').text(this.responseText);
+	}
+    // get next status
+    setTimeout(function() { getPlayerState(); }, 1000); //faster later
+  });
+  oReq.ontimeout = function() {
+    // get next status
+	setTimeout(function() { getPlayerState(); }, 1000);
+  };
+  oReq.onerror = function() {
+    // get next status
+	setTimeout(function() { getPlayerState(); }, 1000);
+  };
+  oReq.open("GET", "player.json?player="+selectedPlayer);
+  oReq.send();
+}
+
+
 function getServerStatus() {
   var oReq = new XMLHttpRequest();
   oReq.timeout = 2000; // time in milliseconds
   oReq.addEventListener("load", function() {
-	//console.log('status', this.responseText);
-    $('#divStatus').html(this.responseText);
+	if (lastServerStatus != this.responseText) {
+		lastServerStatus = this.responseText;
+		$('#divServerStatus').html(this.responseText);
+		console.log('serverStatus', this.responseText);
+	}
     // get next status
-    setTimeout(function() { getServerStatus(); }, 100);
+    setTimeout(function() { getServerStatus(); }, 1000);
   });
   oReq.ontimeout = function() {
     // get next status
@@ -153,5 +227,7 @@ function getServerStatus() {
 
 
 $( document ).ready(function() {
+  getPlayers();
+  getPlayerState();
   getServerStatus();
 });

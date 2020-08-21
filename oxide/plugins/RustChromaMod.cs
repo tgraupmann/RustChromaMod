@@ -177,6 +177,18 @@ namespace Oxide.Plugins
 							{
 								response = _mDebug.ToString();
 							}
+							else if (context.Request.Url.LocalPath == "/players.json")
+							{
+								lock (_mLock)
+								{
+									JArray data = new JArray();
+									foreach (KeyValuePair<string, JArray> kvp in _mServerStatus)
+									{
+										data.Add(kvp.Key);
+									}
+									response = data.ToString();
+								}
+							}
 							else if (context.Request.Url.LocalPath == "/player.json")
 							{
 								lock (_mLock)
@@ -197,10 +209,19 @@ namespace Oxide.Plugins
 </script>
 <h2>RUST Chroma RGB MOD</h2>
 " + "path: " + context.Request.Url.LocalPath + @"
-<div>Players</div>
-<div id=""divPlayers"" />
-<div>Status</div>
-<div id=""divStatus"" />
+
+<div>Players:</div>
+<div id=""divPlayers""></div>
+<br/><br/>
+
+<div>Player State:</div>
+<div id=""divPlayerState""></div>
+<br/><br/>
+
+<div>Server Status:</div>
+<div id=""divServerStatus""></div>
+<br/><br/>
+
 </html>";
 							}
 						}
