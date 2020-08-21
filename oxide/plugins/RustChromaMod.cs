@@ -258,16 +258,42 @@ namespace Oxide.Plugins
 
 		void OnPlayerConnected(BasePlayer player)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnPlayerConnected";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnPlayerConnected: Player={0}", player.displayName);
 		}
 
 		void OnPlayerDisconnected(BasePlayer player, string reason)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnPlayerDisconnected";
+				data["player"] = player.displayName;
+				data["reason"] = reason;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnPlayerDisconnected: Player={0}", player.displayName);
 		}
 
 		object OnMessagePlayer(string message, BasePlayer player)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnMessagePlayer";
+				data["player"] = player.displayName;
+				data["message"] = message;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnMessagePlayer: Player={0} Message={1}", player.displayName, message);
 			return null;
 		}
@@ -276,27 +302,63 @@ namespace Oxide.Plugins
 
 		void OnPlayerAttack(BasePlayer attacker, HitInfo info)
 		{
+			JArray playerState = GetPlayerState(attacker.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnPlayerAttack";
+				data["player"] = attacker.displayName;
+				data["attacker"] = attacker.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnPlayerAttack: Player={0}", attacker.displayName);
 		}
 
 		object OnPlayerDeath(BasePlayer player, HitInfo info)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnPlayerDeath";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnPlayerDeath: Player={0}", player.displayName);
 			return null;
 		}
 
 		void OnPlayerLanded(BasePlayer player, float num)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnPlayerLanded";
+				data["player"] = player.displayName;
+				data["num"] = num;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnPlayerLanded: Player={0}", player.displayName);
 		}
 
 		void OnPlayerLootEnd(PlayerLoot inventory)
 		{
+			// find player
 			AddToServerStatus(@"OnPlayerLootEnd: Inventory={0}", inventory);
 		}
 
 		object OnPlayerAssist(BasePlayer target, BasePlayer player)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnPlayerAssist";
+				data["player"] = player.displayName;
+				data["target"] = target.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnPlayerRevive: target={0}", target.displayName);
 			AddToServerStatus(@"OnPlayerRevive: player={0}", player.displayName);
 			return null;
@@ -304,6 +366,15 @@ namespace Oxide.Plugins
 
 		object OnPlayerRevive(BasePlayer reviver, BasePlayer player)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnPlayerRevive";
+				data["player"] = player.displayName;
+				data["reviver"] = reviver.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnPlayerRevive: reviver={0}", reviver.displayName);
 			AddToServerStatus(@"OnPlayerRevive: player={0}", player.displayName);
 			return null;
@@ -338,11 +409,27 @@ namespace Oxide.Plugins
 
 		void OnMapMarkerAdded(BasePlayer player, MapNote note)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnMapMarkerAdded";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnMapMarkerAdded: player={0}", player.displayName);
 		}
 
 		void OnMapMarkersCleared(BasePlayer player, List<MapNote> notes)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnMapMarkersCleared";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnMapMarkersCleared: player={0}", player.displayName);
 		}
 
@@ -352,33 +439,84 @@ namespace Oxide.Plugins
 
 		void OnExplosiveThrown(BasePlayer player, BaseEntity entity, ThrownWeapon item)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnExplosiveThrown";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnExplosiveThrown: player={0}", player.displayName);
 		}
 
 		void OnMeleeThrown(BasePlayer player, Item item)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnMeleeThrown";
+				data["player"] = player.displayName;
+				data["item"] = GetItemDisplayName(item);
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnMeleeThrown: player={0} item={1}", player.displayName, GetItemDisplayName(item));
 		}
 
 		object OnReloadWeapon(BasePlayer player, BaseProjectile projectile)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnReloadWeapon";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnReloadWeapon: player={0}", player.displayName);
 			return null;
 		}
 
 		void OnRocketLaunched(BasePlayer player, BaseEntity entity)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnRocketLaunched";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnRocketLaunched: player={0}", player.displayName);
 		}
 
 		object OnSwitchAmmo(BasePlayer player, BaseProjectile projectile)
 		{
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnSwitchAmmo";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
 			AddToServerStatus(@"OnSwitchAmmo: player={0}", player.displayName);
 			return null;
 		}
 
 		void OnWeaponFired(BaseProjectile projectile, BasePlayer player, ItemModProjectile mod, ProtoBuf.ProjectileShoot projectiles)
 		{
+			/*
+			Array playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnWeaponFired";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
+			*/
 			AddToServerStatus(@"OnWeaponFired: player={0} projectile={1}", player.displayName, projectile.name);
 		}
 
@@ -388,12 +526,23 @@ namespace Oxide.Plugins
 
 		object OnHorseLead(RidableHorse horse, BasePlayer player)
 		{
+			/*
+			Array playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnHorseLead";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
+			*/
 			AddToServerStatus(@"OnHorseLead: Player={0}", player.displayName);
 			return null;
 		}
 
 		object OnHorseHitch(RidableHorse horse, HitchTrough hitch)
 		{
+			// get player
 			AddToServerStatus(@"OnHorseHitch: Horse={0}", horse);
 			return null;
 		}
