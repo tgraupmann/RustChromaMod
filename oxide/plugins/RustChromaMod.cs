@@ -22,7 +22,7 @@ namespace Oxide.Plugins
         {
             get
             {
-                return 5004;
+                return 5000;
             }
         }
 
@@ -54,7 +54,7 @@ namespace Oxide.Plugins
             }
         }
 
-        ~RustChromaMod()
+        public void Unload()
         {
             _mWaitForExit = false;
 			
@@ -224,12 +224,17 @@ namespace Oxide.Plugins
 			return null;
 		}
 		
+		string GetItemDisplayName(Item item)
+		{
+			return (item == null || item.info == null || item.info.displayName == null || string.IsNullOrEmpty(item.info.displayName.english)) ? "none" : item.info.displayName.english;
+		}
+		
 		void OnActiveItemChanged(BasePlayer player, Item oldItem, Item newItem)
 		{
 			AddToServerStatus(@"OnActiveItemChanged: player={0} oldItem={1} newItem={2}", 
 			player.displayName,
-			oldItem == null ? "none" : oldItem.name,
-			newItem == null ? "none" : newItem.name);
+			GetItemDisplayName(oldItem),
+			GetItemDisplayName(newItem));
 		}
 		
 		#endregion Player Game Events
