@@ -191,7 +191,7 @@ namespace Oxide.Plugins
 		
 		void OnPlayerAttack(BasePlayer attacker, HitInfo info)
 		{
-			AddToServerStatus(@"OnPlayerAttack: Player={0}", attacker.name);
+			AddToServerStatus(@"OnPlayerAttack: Player={0}", attacker.displayName);
 		}
 		
 		object OnPlayerDeath(BasePlayer player, HitInfo info)
