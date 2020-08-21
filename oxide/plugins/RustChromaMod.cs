@@ -10,145 +10,145 @@ using System.Web;
 namespace Oxide.Plugins
 {
     [Info("RustChromaMod", "Razer", "1.0.0")]
-	[Description("Detects game events to play Chroma SDK lighting on RUST clients")]
+    [Description("Detects game events to play Chroma SDK lighting on RUST clients")]
     public class RustChromaMod : RustPlugin
     {
-		private int Port
-		{
-			get
-			{
-				return 5004;
-			}
-		}
-		
-		private bool _mWaitForExit = true;
-		private Thread _mThread = null;
-		private HttpListener _mHttpListener = null;		
-	
-		public RustChromaMod()
-		{
-			PrintToConsole("{0}: Started!", this.GetType());
-			
-			_mWaitForExit = true;
-			
-			_mHttpListener = new HttpListener();
-			
-			try
-			{
-				_mHttpListener.Prefixes.Add(string.Format("http://*:{0}/", Port));
-				_mHttpListener.Start();
-				
-				ThreadStart ts = new ThreadStart(WebWorker);
-				_mThread = new Thread(ts);
-				_mThread.Start();
-			}
-			catch (System.Exception)
-			{
-				PrintToConsole("Failed to start Chroma Proxy!");
-			}
-		}
-		
-		~RustChromaMod()
-		{
-			_mWaitForExit = false;
-			
-			try
+        private int Port
+        {
+            get
             {
-				if (null != _mHttpListener)
-				{
-					_mHttpListener.Abort();
-				}
+                return 5004;
+            }
+        }
+
+        private bool _mWaitForExit = true;
+        private Thread _mThread = null;
+        private HttpListener _mHttpListener = null;
+
+        public RustChromaMod()
+        {
+            PrintToConsole("{0}: Started!", this.GetType());
+
+            _mWaitForExit = true;
+
+            _mHttpListener = new HttpListener();
+
+            try
+            {
+                _mHttpListener.Prefixes.Add(string.Format("http://*:{0}/", Port));
+                _mHttpListener.Start();
+
+                ThreadStart ts = new ThreadStart(WebWorker);
+                _mThread = new Thread(ts);
+                _mThread.Start();
             }
             catch (System.Exception)
             {
-				PrintToConsole("Failed to abort HttpListener!");
+                PrintToConsole("Failed to start Chroma Proxy!");
+            }
+        }
+
+        ~RustChromaMod()
+        {
+            _mWaitForExit = false;
+
+            try
+            {
+                if (null != _mHttpListener)
+                {
+                    _mHttpListener.Abort();
+                }
+            }
+            catch (System.Exception)
+            {
+                PrintToConsole("Failed to abort HttpListener!");
             }
 
             try
             {
-				if (null != _mHttpListener)
-				{
-					_mHttpListener.Stop();
-				}
+                if (null != _mHttpListener)
+                {
+                    _mHttpListener.Stop();
+                }
             }
             catch (System.Exception)
             {
-				PrintToConsole("Failed to stop HttpListener!");
+                PrintToConsole("Failed to stop HttpListener!");
             }
-			
-			try
-			{
-				if (null != _mThread)
-				{
-					_mThread.Abort();
-					_mThread = null;
-				}
-			}
-			catch (System.Exception)
-            {
-				PrintToConsole("Failed to abort Thread!");
-            }
-			
-			PrintToConsole("{0}: Exited!", this.GetType());
-		}
-		private void WebWorker()
-		{
-			string script = string.Empty;
-			try
-			{
-				string path = @"oxide\plugins\RustChromaMod.js";
-				using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-				{
-					using (StreamReader sr = new StreamReader(fs))
-					{
-						script = sr.ReadToEnd();
-					}
-				}
-			}
-			catch (System.Exception)
-			{
-				PrintToConsole("Failed to read Javascript!");
-			}
-			while (_mWaitForExit)
-			{
-				try
-				{
-					if (null != _mHttpListener)
-					{
-						HttpListenerContext context = _mHttpListener.GetContext();
-						if (null != context)
-						{						
-							string response = string.Empty;
 
-							if (string.IsNullOrEmpty(context.Request.Url.LocalPath))
-							{
-							}
-							else
-							{
-								response = @"<html><head><script>
-"+script+@"
-</script>								
+            try
+            {
+                if (null != _mThread)
+                {
+                    _mThread.Abort();
+                    _mThread = null;
+                }
+            }
+            catch (System.Exception)
+            {
+                PrintToConsole("Failed to abort Thread!");
+            }
+
+            PrintToConsole("{0}: Exited!", this.GetType());
+        }
+        private void WebWorker()
+        {
+            string script = string.Empty;
+            try
+            {
+                string path = @"oxide\plugins\RustChromaMod.js";
+                using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+                        script = sr.ReadToEnd();
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+                PrintToConsole("Failed to read Javascript!");
+            }
+            while (_mWaitForExit)
+            {
+                try
+                {
+                    if (null != _mHttpListener)
+                    {
+                        HttpListenerContext context = _mHttpListener.GetContext();
+                        if (null != context)
+                        {
+                            string response = string.Empty;
+
+                            if (string.IsNullOrEmpty(context.Request.Url.LocalPath))
+                            {
+                            }
+                            else
+                            {
+                                response = @"<html><head><script>
+" + script + @"
+</script>
 <h2>RUST Chroma RGB MOD</h2>
 " + "path: " + context.Request.Url.LocalPath + @"
 </html>";
-							}
-							
-							byte[] bytes = UTF8Encoding.UTF8.GetBytes(response);
-							context.Response.ContentEncoding = Encoding.UTF8;
-							context.Response.AddHeader("ContentType", "utf8");
-							context.Response.AddHeader("Cache-Control", "no-cache");
-							context.Response.OutputStream.Write(bytes, 0, bytes.Length);
-							context.Response.OutputStream.Flush();
-							context.Response.Close();
-						}
-					}
-				}
-				catch(System.Exception)
-				{
-					PrintToConsole("Failed to send response!");
-				}
-				Thread.Sleep(0);
-			}
-		}
-	}
+                            }
+
+                            byte[] bytes = UTF8Encoding.UTF8.GetBytes(response);
+                            context.Response.ContentEncoding = Encoding.UTF8;
+                            context.Response.AddHeader("ContentType", "utf8");
+                            context.Response.AddHeader("Cache-Control", "no-cache");
+                            context.Response.OutputStream.Write(bytes, 0, bytes.Length);
+                            context.Response.OutputStream.Flush();
+                            context.Response.Close();
+                        }
+                    }
+                }
+                catch (System.Exception)
+                {
+                    PrintToConsole("Failed to send response!");
+                }
+                Thread.Sleep(0);
+            }
+        }
+    }
 }
