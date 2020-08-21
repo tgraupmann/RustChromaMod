@@ -178,12 +178,24 @@ function getPlayerState() {
   var oReq = new XMLHttpRequest();
   oReq.timeout = 2000; // time in milliseconds
   oReq.addEventListener("load", function() {
-	console.log('playerState', this.responseText);
-	if (lastPlayerState != this.responseText) {
-		lastPlayerState = this.responseText;
-		var json = JSON.parse(this.responseText);
-		console.log('json', json);
-		$('#divPlayerState').text(this.responseText);
+	//console.log('playerState', this.responseText);
+	
+	var json = JSON.parse(this.responseText);
+	//console.log('json', json);
+	var events = '';
+	for (var i = 0; i < Object.keys(json).length; ++i) {
+		var data = json[i];
+		//console.log('selectedPlayer', selectedPlayer, 'player', data.player, 'event', data.event);
+		if (data.player == selectedPlayer) {
+			events += JSON.stringify(data);
+			events += '<br/>';
+			//events += data.event;
+			//events += '<br/>';
+		}
+	}
+	if (lastPlayerState != events) {
+		lastPlayerState = events;
+		$('#divPlayerState').html(events);
 	}
     // get next status
     setTimeout(function() { getPlayerState(); }, 1000); //faster later
@@ -208,7 +220,7 @@ function getServerStatus() {
 	if (lastServerStatus != this.responseText) {
 		lastServerStatus = this.responseText;
 		$('#divServerStatus').html(this.responseText);
-		console.log('serverStatus', this.responseText);
+		//console.log('serverStatus', this.responseText);
 	}
     // get next status
     setTimeout(function() { getServerStatus(); }, 1000);

@@ -34,7 +34,7 @@ namespace Oxide.Plugins
 		private System.Object _mLock = null;
 		private Dictionary<string, JArray> _mServerStatus = null;
 		
-		const string PLAYER_STATE_EVENT = "Event";
+		const string PLAYER_STATE_EVENT = "event";
 
 		public RustChromaMod()
 		{
@@ -196,7 +196,11 @@ namespace Oxide.Plugins
 									JArray data = new JArray();
 									foreach (KeyValuePair<string, JArray> kvp in _mServerStatus)
 									{
-										data.Add(kvp.Value);
+										JArray playerData = kvp.Value;
+										foreach (JObject eventData in playerData)
+										{
+											data.Add(eventData);
+										}
 									}
 									response = data.ToString();
 								}
