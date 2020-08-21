@@ -33,8 +33,8 @@ namespace Oxide.Plugins
 
         public RustChromaMod()
         {
-            PrintToConsole("{0}: Started!", this.GetType());
-
+            AddToServerStatus("{0}: Started! {1}", this.GetType(), System.DateTime.Now);
+			
             _mWaitForExit = true;
 
             _mHttpListener = new HttpListener();
@@ -97,9 +97,10 @@ namespace Oxide.Plugins
 
             PrintToConsole("{0}: Exited!", this.GetType());
         }
-        private void WebWorker()
-        {
-            string script = string.Empty;
+		
+		private string ReadJavaScriptFile()
+		{
+			string script = string.Empty;
             try
             {
                 string path = @"oxide\plugins\RustChromaMod.js";
@@ -115,6 +116,12 @@ namespace Oxide.Plugins
             {
                 PrintToConsole("Failed to read Javascript!");
             }
+			return script;
+		}
+		
+        private void WebWorker()
+        {
+            string script = ReadJavaScriptFile();            
             while (_mWaitForExit)
             {
                 try
@@ -134,6 +141,7 @@ namespace Oxide.Plugins
 							}
                             else
                             {
+								script = ReadJavaScriptFile(); //debug reload each time so I can make changes
                                 response = @"<html><head><script>
 " + script + @"
 </script>
@@ -262,7 +270,7 @@ namespace Oxide.Plugins
 		
 		void OnMeleeThrown(BasePlayer player, Item item)
 		{
-			AddToServerStatus(@"OnMeleeThrown: player={0}", player.displayName);
+			AddToServerStatus(@"OnMeleeThrown: player={0} item={1}", player.displayName, GetItemDisplayName(item));
 		}
 		
 		object OnReloadWeapon(BasePlayer player, BaseProjectile projectile)
