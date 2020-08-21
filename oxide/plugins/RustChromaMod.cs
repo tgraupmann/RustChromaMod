@@ -1,5 +1,10 @@
 using Newtonsoft.Json;
 using Oxide.Core;
+using Oxide.Core.Configuration;
+using Oxide.Core.Libraries.Covalence;
+using Oxide.Core.Plugins;
+using Oxide.Game.Rust.Libraries.Covalence;
+using ProtoBuf;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -24,6 +29,7 @@ namespace Oxide.Plugins
         private bool _mWaitForExit = true;
         private Thread _mThread = null;
         private HttpListener _mHttpListener = null;
+		private StringBuilder _mDebug = new StringBuilder();
 
         public RustChromaMod()
         {
@@ -51,8 +57,8 @@ namespace Oxide.Plugins
         ~RustChromaMod()
         {
             _mWaitForExit = false;
-
-            try
+			
+			try
             {
                 if (null != _mHttpListener)
                 {
@@ -63,8 +69,8 @@ namespace Oxide.Plugins
             {
                 PrintToConsole("Failed to abort HttpListener!");
             }
-
-            try
+			
+			try
             {
                 if (null != _mHttpListener)
                 {
@@ -130,6 +136,8 @@ namespace Oxide.Plugins
 </script>
 <h2>RUST Chroma RGB MOD</h2>
 " + "path: " + context.Request.Url.LocalPath + @"
+<div>Status</div>
+<div>" + _mDebug.ToString() + @"</div>
 </html>";
                             }
 
@@ -150,5 +158,134 @@ namespace Oxide.Plugins
                 Thread.Sleep(0);
             }
         }
+		
+		void OnPlayerConnected(BasePlayer player)
+		{
+			_mDebug.AppendFormat(@"OnPlayerConnected: Player={0}<br/>", player.displayName);
+		}
+		
+		void OnPlayerDisconnected(BasePlayer player, string reason)
+		{
+			_mDebug.AppendFormat(@"OnPlayerDisconnected: Player={0}<br/>", player.displayName);
+		}
+		
+		object OnMessagePlayer(string message, BasePlayer player)
+		{
+			_mDebug.AppendFormat(@"OnMessagePlayer: Player={0} Message={1}<br/>", player.displayName, message);
+			return null;
+		}
+		
+		#region Player Game Events
+		
+		void OnPlayerAttack(BasePlayer attacker, HitInfo info)
+		{
+			_mDebug.AppendFormat(@"OnPlayerAttack: Player={0}<br/>", attacker.name);
+		}
+		
+		object OnPlayerDeath(BasePlayer player, HitInfo info)
+		{
+			_mDebug.AppendFormat(@"OnPlayerDeath: Player={0}<br/>", player.displayName);
+			return null;
+		}
+		
+		void OnPlayerLanded(BasePlayer player, float num)
+		{
+			_mDebug.AppendFormat(@"OnPlayerLanded: Player={0}<br/>", player.displayName);
+		}
+		
+		void OnPlayerLootEnd(PlayerLoot inventory)
+		{
+			_mDebug.AppendFormat(@"OnPlayerLootEnd: Inventory={0}<br/>", inventory);
+		}
+		
+		object OnPlayerAssist(BasePlayer target, BasePlayer player)
+		{
+			_mDebug.AppendFormat(@"OnPlayerRevive: target={0}<br/>", target.displayName);
+			_mDebug.AppendFormat(@"OnPlayerRevive: player={0}<br/>", player.displayName);
+			return null;
+		}
+		
+		object OnPlayerRevive(BasePlayer reviver, BasePlayer player)
+		{
+			_mDebug.AppendFormat(@"OnPlayerRevive: reviver={0}<br/>", reviver.displayName);
+			_mDebug.AppendFormat(@"OnPlayerRevive: player={0}<br/>", player.displayName);
+			return null;
+		}
+		
+		void OnActiveItemChanged(BasePlayer player, Item oldItem, Item newItem)
+		{
+			_mDebug.AppendFormat(@"OnActiveItemChanged: player={0} oldItem={1} newItem={2}<br/>", 
+			player.displayName,
+			oldItem == null ? "none" : oldItem.name,
+			newItem == null ? "none" : newItem.name);
+		}
+		
+		#endregion Player Game Events
+		
+		#region Map Game Events
+		
+		void OnMapMarkerAdded(BasePlayer player, MapNote note)
+		{
+			_mDebug.AppendFormat(@"OnMapMarkerAdded: player={0}<br/>", player.displayName);
+		}
+		
+		void OnMapMarkersCleared(BasePlayer player, List<MapNote> notes)
+		{
+			_mDebug.AppendFormat(@"OnMapMarkersCleared: player={0}<br/>", player.displayName);
+		}
+		
+		#endregion Map Game Events
+		
+		#region Weapon Game Events
+		
+		void OnExplosiveThrown(BasePlayer player, BaseEntity entity, ThrownWeapon item)
+		{
+			_mDebug.AppendFormat(@"OnExplosiveThrown: player={0}<br/>", player.displayName);
+		}
+		
+		void OnMeleeThrown(BasePlayer player, Item item)
+		{
+			_mDebug.AppendFormat(@"OnMeleeThrown: player={0}<br/>", player.displayName);
+		}
+		
+		object OnReloadWeapon(BasePlayer player, BaseProjectile projectile)
+		{
+			_mDebug.AppendFormat(@"OnReloadWeapon: player={0}<br/>", player.displayName);
+			return null;
+		}
+		
+		void OnRocketLaunched(BasePlayer player, BaseEntity entity)
+		{
+			_mDebug.AppendFormat(@"OnRocketLaunched: player={0}<br/>", player.displayName);
+		}
+		
+		object OnSwitchAmmo(BasePlayer player, BaseProjectile projectile)
+		{
+			_mDebug.AppendFormat(@"OnSwitchAmmo: player={0}<br/>", player.displayName);
+			return null;
+		}
+		
+		void OnWeaponFired(BaseProjectile projectile, BasePlayer player, ItemModProjectile mod, ProtoBuf.ProjectileShoot projectiles)
+		{
+			_mDebug.AppendFormat(@"OnWeaponFired: player={0} projectile={1}<br/>", player.displayName, projectile.name);
+		}
+		
+		#endregion Weapon Game Events
+		
+		#region Horse Game Events
+		
+		object OnHorseLead(RidableHorse horse, BasePlayer player)
+		{
+			_mDebug.AppendFormat(@"OnHorseLead: Player={0}<br/>", player.displayName);
+			return null;
+		}
+		
+		object OnHorseHitch(RidableHorse horse, HitchTrough hitch)
+		{
+			_mDebug.AppendFormat(@"OnHorseHitch: Horse={0}<br/>", horse);
+			return null;
+		}
+		
+		#endregion Horse Game Events
     }
 }
