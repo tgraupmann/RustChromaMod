@@ -122,13 +122,16 @@ namespace Oxide.Plugins
                     if (null != _mHttpListener)
                     {
                         HttpListenerContext context = _mHttpListener.GetContext();
+						string response = string.Empty;
                         if (null != context)
                         {
-                            string response = string.Empty;
-
                             if (string.IsNullOrEmpty(context.Request.Url.LocalPath))
                             {
                             }
+							else if (context.Request.Url.LocalPath == "/status.html")
+							{
+								response = _mDebug.ToString();
+							}
                             else
                             {
                                 response = @"<html><head><script>
@@ -137,10 +140,13 @@ namespace Oxide.Plugins
 <h2>RUST Chroma RGB MOD</h2>
 " + "path: " + context.Request.Url.LocalPath + @"
 <div>Status</div>
-<div>" + _mDebug.ToString() + @"</div>
+<div id=""divStatus"" />
 </html>";
                             }
-
+						}
+						
+						if (!string.IsNullOrEmpty(response))
+						{
                             byte[] bytes = UTF8Encoding.UTF8.GetBytes(response);
                             context.Response.ContentEncoding = Encoding.UTF8;
                             context.Response.AddHeader("ContentType", "utf8");
@@ -159,19 +165,25 @@ namespace Oxide.Plugins
             }
         }
 		
+		void AddToServerStatus(string msg, params object[] format)
+		{
+			_mDebug.AppendFormat(msg, format);
+			_mDebug.AppendLine("<br/>");
+		}
+		
 		void OnPlayerConnected(BasePlayer player)
 		{
-			_mDebug.AppendFormat(@"OnPlayerConnected: Player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnPlayerConnected: Player={0}", player.displayName);
 		}
 		
 		void OnPlayerDisconnected(BasePlayer player, string reason)
 		{
-			_mDebug.AppendFormat(@"OnPlayerDisconnected: Player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnPlayerDisconnected: Player={0}", player.displayName);
 		}
 		
 		object OnMessagePlayer(string message, BasePlayer player)
 		{
-			_mDebug.AppendFormat(@"OnMessagePlayer: Player={0} Message={1}<br/>", player.displayName, message);
+			AddToServerStatus(@"OnMessagePlayer: Player={0} Message={1}", player.displayName, message);
 			return null;
 		}
 		
@@ -179,42 +191,42 @@ namespace Oxide.Plugins
 		
 		void OnPlayerAttack(BasePlayer attacker, HitInfo info)
 		{
-			_mDebug.AppendFormat(@"OnPlayerAttack: Player={0}<br/>", attacker.name);
+			AddToServerStatus(@"OnPlayerAttack: Player={0}", attacker.name);
 		}
 		
 		object OnPlayerDeath(BasePlayer player, HitInfo info)
 		{
-			_mDebug.AppendFormat(@"OnPlayerDeath: Player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnPlayerDeath: Player={0}", player.displayName);
 			return null;
 		}
 		
 		void OnPlayerLanded(BasePlayer player, float num)
 		{
-			_mDebug.AppendFormat(@"OnPlayerLanded: Player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnPlayerLanded: Player={0}", player.displayName);
 		}
 		
 		void OnPlayerLootEnd(PlayerLoot inventory)
 		{
-			_mDebug.AppendFormat(@"OnPlayerLootEnd: Inventory={0}<br/>", inventory);
+			AddToServerStatus(@"OnPlayerLootEnd: Inventory={0}", inventory);
 		}
 		
 		object OnPlayerAssist(BasePlayer target, BasePlayer player)
 		{
-			_mDebug.AppendFormat(@"OnPlayerRevive: target={0}<br/>", target.displayName);
-			_mDebug.AppendFormat(@"OnPlayerRevive: player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnPlayerRevive: target={0}", target.displayName);
+			AddToServerStatus(@"OnPlayerRevive: player={0}", player.displayName);
 			return null;
 		}
 		
 		object OnPlayerRevive(BasePlayer reviver, BasePlayer player)
 		{
-			_mDebug.AppendFormat(@"OnPlayerRevive: reviver={0}<br/>", reviver.displayName);
-			_mDebug.AppendFormat(@"OnPlayerRevive: player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnPlayerRevive: reviver={0}", reviver.displayName);
+			AddToServerStatus(@"OnPlayerRevive: player={0}", player.displayName);
 			return null;
 		}
 		
 		void OnActiveItemChanged(BasePlayer player, Item oldItem, Item newItem)
 		{
-			_mDebug.AppendFormat(@"OnActiveItemChanged: player={0} oldItem={1} newItem={2}<br/>", 
+			AddToServerStatus(@"OnActiveItemChanged: player={0} oldItem={1} newItem={2}", 
 			player.displayName,
 			oldItem == null ? "none" : oldItem.name,
 			newItem == null ? "none" : newItem.name);
@@ -226,12 +238,12 @@ namespace Oxide.Plugins
 		
 		void OnMapMarkerAdded(BasePlayer player, MapNote note)
 		{
-			_mDebug.AppendFormat(@"OnMapMarkerAdded: player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnMapMarkerAdded: player={0}", player.displayName);
 		}
 		
 		void OnMapMarkersCleared(BasePlayer player, List<MapNote> notes)
 		{
-			_mDebug.AppendFormat(@"OnMapMarkersCleared: player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnMapMarkersCleared: player={0}", player.displayName);
 		}
 		
 		#endregion Map Game Events
@@ -240,34 +252,34 @@ namespace Oxide.Plugins
 		
 		void OnExplosiveThrown(BasePlayer player, BaseEntity entity, ThrownWeapon item)
 		{
-			_mDebug.AppendFormat(@"OnExplosiveThrown: player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnExplosiveThrown: player={0}", player.displayName);
 		}
 		
 		void OnMeleeThrown(BasePlayer player, Item item)
 		{
-			_mDebug.AppendFormat(@"OnMeleeThrown: player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnMeleeThrown: player={0}", player.displayName);
 		}
 		
 		object OnReloadWeapon(BasePlayer player, BaseProjectile projectile)
 		{
-			_mDebug.AppendFormat(@"OnReloadWeapon: player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnReloadWeapon: player={0}", player.displayName);
 			return null;
 		}
 		
 		void OnRocketLaunched(BasePlayer player, BaseEntity entity)
 		{
-			_mDebug.AppendFormat(@"OnRocketLaunched: player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnRocketLaunched: player={0}", player.displayName);
 		}
 		
 		object OnSwitchAmmo(BasePlayer player, BaseProjectile projectile)
 		{
-			_mDebug.AppendFormat(@"OnSwitchAmmo: player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnSwitchAmmo: player={0}", player.displayName);
 			return null;
 		}
 		
 		void OnWeaponFired(BaseProjectile projectile, BasePlayer player, ItemModProjectile mod, ProtoBuf.ProjectileShoot projectiles)
 		{
-			_mDebug.AppendFormat(@"OnWeaponFired: player={0} projectile={1}<br/>", player.displayName, projectile.name);
+			AddToServerStatus(@"OnWeaponFired: player={0} projectile={1}", player.displayName, projectile.name);
 		}
 		
 		#endregion Weapon Game Events
@@ -276,13 +288,13 @@ namespace Oxide.Plugins
 		
 		object OnHorseLead(RidableHorse horse, BasePlayer player)
 		{
-			_mDebug.AppendFormat(@"OnHorseLead: Player={0}<br/>", player.displayName);
+			AddToServerStatus(@"OnHorseLead: Player={0}", player.displayName);
 			return null;
 		}
 		
 		object OnHorseHitch(RidableHorse horse, HitchTrough hitch)
 		{
-			_mDebug.AppendFormat(@"OnHorseHitch: Horse={0}<br/>", horse);
+			AddToServerStatus(@"OnHorseHitch: Horse={0}", horse);
 			return null;
 		}
 		
