@@ -80,7 +80,7 @@ client.connect <SERVER_IP_ADDRESS>:28015
 
 ## Setup
 
-* Copy [RustChromaMod.hs](oxide/plugins/RustChromaMod.js) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
+* Copy [RustChromaMod.js](oxide/plugins/RustChromaMod.js) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
 
 * Copy [RustChromaMod.cs](oxide/plugins/RustChromaMod.cs) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
 
