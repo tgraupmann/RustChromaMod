@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Oxide.Core;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -92,6 +93,22 @@ namespace Oxide.Plugins
 		}
 		private void WebWorker()
 		{
+			string script = string.Empty;
+			try
+			{
+				string path = @"oxide\plugins\RustChromaMod.js";
+				using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+				{
+					using (StreamReader sr = new StreamReader(fs))
+					{
+						script = sr.ReadToEnd();
+					}
+				}
+			}
+			catch (System.Exception)
+			{
+				PrintToConsole("Failed to read Javascript!");
+			}
 			while (_mWaitForExit)
 			{
 				try
@@ -108,7 +125,9 @@ namespace Oxide.Plugins
 							}
 							else
 							{
-								response = @"<html>
+								response = @"<html><head><script>
+"+script+@"
+</script>								
 <h2>RUST Chroma RGB MOD</h2>
 " + "path: " + context.Request.Url.LocalPath + @"
 </html>";

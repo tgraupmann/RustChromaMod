@@ -80,6 +80,8 @@ client.connect <SERVER_IP_ADDRESS>:28015
 
 ## Setup
 
+* Copy [RustChromaMod.hs](oxide/plugins/RustChromaMod.js) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
+
 * Copy [RustChromaMod.cs](oxide/plugins/RustChromaMod.cs) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
 
 * Disable sandbox: Create an empty text file `C:\steamcmd\steamapps\rust_server\RustDedicated_Data\Managed\oxide.disable-sandbox`
