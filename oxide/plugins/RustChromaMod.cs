@@ -12,14 +12,21 @@ namespace Oxide.Plugins
 	[Description("Detects game events to play Chroma SDK lighting on RUST clients")]
     public class RustChromaMod : RustPlugin
     {
+		private int Port
+		{
+			get
+			{
+				return 5004;
+			}
+		}
+		
 		private bool _mWaitForExit = true;
 		private Thread _mThread = null;
-		private HttpListener _mHttpListener = null;
-		
+		private HttpListener _mHttpListener = null;		
 	
 		public RustChromaMod()
 		{
-			System.Console.WriteLine("{0}: Started!", this.GetType());
+			PrintToConsole("{0}: Started!", this.GetType());
 			
 			_mWaitForExit = true;
 			
@@ -27,16 +34,16 @@ namespace Oxide.Plugins
 			
 			try
 			{
-				//_mHttpListener.Prefixes.Add("http://localhost:5006/");
-				//_mHttpListener.Start();
+				_mHttpListener.Prefixes.Add(string.Format("http://*:{0}/", Port));
+				_mHttpListener.Start();
 				
-				//ThreadStart ts = new ThreadStart(WebWorker);
-				//_mThread = new Thread(ts);
-				//_mThread.Start();
+				ThreadStart ts = new ThreadStart(WebWorker);
+				_mThread = new Thread(ts);
+				_mThread.Start();
 			}
 			catch (System.Exception)
 			{
-				System.Console.WriteLine("Failed to start Chroma Proxy!");
+				PrintToConsole("Failed to start Chroma Proxy!");
 			}
 		}
 		
@@ -53,7 +60,7 @@ namespace Oxide.Plugins
             }
             catch (System.Exception)
             {
-
+				PrintToConsole("Failed to abort HttpListener!");
             }
 
             try
@@ -65,7 +72,7 @@ namespace Oxide.Plugins
             }
             catch (System.Exception)
             {
-
+				PrintToConsole("Failed to stop HttpListener!");
             }
 			
 			try
@@ -78,10 +85,10 @@ namespace Oxide.Plugins
 			}
 			catch (System.Exception)
             {
-
+				PrintToConsole("Failed to abort Thread!");
             }
 			
-			System.Console.WriteLine("{0}: Exited!", this.GetType());
+			PrintToConsole("{0}: Exited!", this.GetType());
 		}
 		private void WebWorker()
 		{
@@ -92,24 +99,28 @@ namespace Oxide.Plugins
 					if (null != _mHttpListener)
 					{
 						HttpListenerContext context = _mHttpListener.GetContext();
-						
-						/*
-						string response = "Hello World!";
+						if (null != context)
+						{						
+							string response = "Hello World 1.1!";
 
-						if (string.IsNullOrEmpty(context.Request.Url.LocalPath))
-						{
+							/*
+							if (string.IsNullOrEmpty(context.Request.Url.LocalPath))
+							{
+							}
+							*/
+							
+							byte[] bytes = UTF8Encoding.UTF8.GetBytes(response);
+							context.Response.ContentEncoding = Encoding.UTF8;
+							context.Response.AddHeader("ContentType", "utf8");
+							context.Response.OutputStream.Write(bytes, 0, bytes.Length);
+							context.Response.OutputStream.Flush();
+							context.Response.Close();
 						}
-						
-						byte[] bytes = UTF8Encoding.UTF8.GetBytes(response);
-						context.Response.ContentEncoding = Encoding.UTF8;
-						context.Response.AddHeader("ContentType", "utf8");
-						context.Response.OutputStream.Write(bytes, 0, bytes.Length);
-						context.Response.OutputStream.Flush();
-						*/
 					}
 				}
 				catch(System.Exception)
 				{
+					PrintToConsole("Failed to send response!");
 				}
 				Thread.Sleep(0);
 			}
