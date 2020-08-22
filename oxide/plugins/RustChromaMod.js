@@ -787,10 +787,19 @@ var ChromaAnimation = {
       }
 
       // play idle animation if no other animations are playing
-      if (useIdleAnimation &&
-        ChromaAnimation.UseIdleAnimation1D[device] &&
+      if (ChromaAnimation.UseIdleAnimation1D[device] &&
         idleAnimation != undefined) {
-        idleAnimation.playFrame();
+		if (useIdleAnimation) {
+          idleAnimation.playFrame();
+		} else {
+          if (idleAnimation.FrameTime < Date.now()) {
+            var duration = idleAnimation.getDuration();
+            if (duration < 0.1) {
+              duration = 0.1;
+            }
+            idleAnimation.FrameTime = Date.now() + duration * 1000;
+		  }
+		}
       }
     }
 
@@ -810,11 +819,20 @@ var ChromaAnimation = {
       }
 
       // play idle animation if no other animations are playing
-      if (useIdleAnimation &&
-        ChromaAnimation.UseIdleAnimation2D[device] &&
+      if (ChromaAnimation.UseIdleAnimation2D[device] &&
         idleAnimation != undefined) {
-        idleAnimation.playFrame();
-      }
+		if (useIdleAnimation) {
+          idleAnimation.playFrame();
+		} else {
+		  if (idleAnimation.FrameTime < Date.now()) {
+			  var duration = idleAnimation.getDuration();
+			  if (duration < 0.1) {
+			    duration = 0.1;
+              }
+			  idleAnimation.FrameTime = Date.now() + duration * 1000;
+		  }
+		}
+	  }
     }
 
   },
@@ -3578,6 +3596,7 @@ var ChromaAnimation = {
         frames.push(frame);
       }
       var newAnimation = new ChromaAnimation1D();
+	  newAnimation.Name = newAnimationName;
       newAnimation.Device = animation.Device;
       newAnimation.DeviceType = animation.DeviceType;
       newAnimation.Frames = frames;
@@ -3600,6 +3619,7 @@ var ChromaAnimation = {
         frames.push(frame);
       }
       var newAnimation = new ChromaAnimation2D();
+	  newAnimation.Name = newAnimationName;
       newAnimation.Device = animation.Device;
       newAnimation.DeviceType = animation.DeviceType;
       newAnimation.Frames = frames;
@@ -5382,7 +5402,7 @@ ChromaAnimation1D.prototype = {
       var refThis = this;
       if (duration < 0.1) {
         duration = 0.1;
-      }
+	  }
       this.FrameTime = Date.now() + Math.floor(duration * 1000);
       ++this.CurrentIndex;
     } else {
@@ -5613,7 +5633,7 @@ ChromaAnimation2D.prototype = {
       var refThis = this;
       if (duration < 0.1) {
         duration = 0.1;
-      }
+	  }
       this.FrameTime = Date.now() + Math.floor(duration * 1000);
       ++this.CurrentIndex;
     } else {
@@ -5904,11 +5924,14 @@ function setupIdleAnimation(sourceAnimation, idleAnimation, device) {
 		ChromaAnimation.reduceFrames(sourceAnimation, 2);
 		ChromaAnimation.reduceFrames(sourceAnimation, 2);
 
-		var color1 = ChromaAnimation.getRGB(16,16,16);
-		var color2 = ChromaAnimation.getRGB(48,48,0);
+		var color1 = ChromaAnimation.getRGB(255,255,0);
+		var color2 = ChromaAnimation.getRGB(0,0,255);
 		ChromaAnimation.multiplyTargetColorLerpAllFrames(sourceAnimation, color1, color2);
 		
+		ChromaAnimation.overrideFrameDuration(sourceAnimation, 0.033);
+		
 		ChromaAnimation.copyAnimation(sourceAnimation, idleAnimation);
+		ChromaAnimation.closeAnimation(sourceAnimation);
 		
 		ChromaAnimation.setIdleAnimation(idleAnimation);
 		ChromaAnimation.useIdleAnimation(device, true);
