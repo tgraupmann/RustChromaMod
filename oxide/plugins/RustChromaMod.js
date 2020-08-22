@@ -159,7 +159,7 @@ function getPlayers() {
 	}
 
     // get next status
-    setTimeout(function() { getPlayers(); }, 100);
+    setTimeout(function() { getPlayers(); }, 1000);
   });
   oReq.ontimeout = function() {
     // get next status
@@ -186,7 +186,9 @@ function getPlayerState() {
 	for (var i = 0; i < Object.keys(json).length; ++i) {
 		var data = json[i];
 		//console.log('selectedPlayer', selectedPlayer, 'player', data.player, 'event', data.event);
-		if (data.player == selectedPlayer) {
+		if (selectedPlayer != '' &&
+			data.player == selectedPlayer) {
+			console.log('selected player', selectedPlayer, data.event);
 			events += JSON.stringify(data);
 			events += '<br/>';
 			//events += data.event;
@@ -198,7 +200,7 @@ function getPlayerState() {
 		$('#divPlayerState').html(events);
 	}
     // get next status
-    setTimeout(function() { getPlayerState(); }, 1000); //faster later
+    setTimeout(function() { getPlayerState(); }, 100);
   });
   oReq.ontimeout = function() {
     // get next status

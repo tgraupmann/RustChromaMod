@@ -32,7 +32,7 @@ namespace Oxide.Plugins
 		private HttpListener _mHttpListener = null;
 		private StringBuilder _mDebug = new StringBuilder();
 		private System.Object _mLock = null;
-		private Dictionary<string, JArray> _mServerStatus = null;
+		private Dictionary<string, JArray> _mPlayerStates = null;
 		
 		const string PLAYER_STATE_EVENT = "event";
 
@@ -41,7 +41,7 @@ namespace Oxide.Plugins
 			AddToServerStatus("{0}: Started! {1}", this.GetType(), System.DateTime.Now);
 
 			_mLock = new System.Object();
-			_mServerStatus = new Dictionary<string, Newtonsoft.Json.Linq.JArray>();
+			_mPlayerStates = new Dictionary<string, Newtonsoft.Json.Linq.JArray>();
 
 			_mWaitForExit = true;
 
@@ -136,14 +136,14 @@ namespace Oxide.Plugins
 			JArray result;
 			lock (_mLock)
 			{
-				if (_mServerStatus.ContainsKey(displayName))
+				if (_mPlayerStates.ContainsKey(displayName))
 				{
-					result = _mServerStatus[displayName];
+					result = _mPlayerStates[displayName];
 				}
 				else
 				{
 					result = new JArray();
-					_mServerStatus[displayName] = result;
+					_mPlayerStates[displayName] = result;
 				}
 			}
 			return result;
@@ -182,7 +182,7 @@ namespace Oxide.Plugins
 								lock (_mLock)
 								{
 									JArray data = new JArray();
-									foreach (KeyValuePair<string, JArray> kvp in _mServerStatus)
+									foreach (KeyValuePair<string, JArray> kvp in _mPlayerStates)
 									{
 										data.Add(kvp.Key);
 									}
@@ -194,13 +194,27 @@ namespace Oxide.Plugins
 								lock (_mLock)
 								{
 									JArray data = new JArray();
-									foreach (KeyValuePair<string, JArray> kvp in _mServerStatus)
+									string selectedPlayer = context.Request.QueryString["player"];
+									if (selectedPlayer == null ||
+										string.IsNullOrEmpty(selectedPlayer))
 									{
-										JArray playerData = kvp.Value;
+										foreach (KeyValuePair<string, JArray> kvp in _mPlayerStates)
+										{
+											JArray playerData = kvp.Value;
+											foreach (JObject eventData in playerData)
+											{
+												data.Add(eventData);
+											}
+										}
+									}
+									else if (_mPlayerStates.ContainsKey(selectedPlayer))
+									{
+										JArray playerData = _mPlayerStates[selectedPlayer];
 										foreach (JObject eventData in playerData)
 										{
 											data.Add(eventData);
 										}
+										playerData.Clear(); //clear data after sending
 									}
 									response = data.ToString();
 								}
