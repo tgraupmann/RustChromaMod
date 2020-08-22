@@ -131,12 +131,6 @@ function detectWindowFocus() {
 }
 
 
-handleTabVisibility();
-setInterval(function() {
-  detectWindowFocus();
-}, 1000);
-
-
 function getPlayers() {
   var oReq = new XMLHttpRequest();
   oReq.timeout = 2000; // time in milliseconds
@@ -300,7 +294,6 @@ function gameChromaReady() {
 
 
 function showEffect1Keyboard() {
-  handleButtonClick(showEffect1);
 
   var baseLayer = 'Animations/Blank_Keyboard.chroma';
   ChromaAnimation.closeAnimation(baseLayer);
@@ -434,6 +427,9 @@ $( document ).ready(function() {
   getPlayers();
   getPlayerState();
   getServerStatus();
+  
+  handleTabVisibility();
+  setInterval(function() {
+    detectWindowFocus();
+  }, 1000);
 });
-
-
