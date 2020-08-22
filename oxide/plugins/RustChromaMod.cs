@@ -552,8 +552,7 @@ namespace Oxide.Plugins
 
 		void OnWeaponFired(BaseProjectile projectile, BasePlayer player, ItemModProjectile mod, ProtoBuf.ProjectileShoot projectiles)
 		{
-			/*
-			Array playerState = GetPlayerState(player.displayName);
+			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
 				JObject data = new JObject();
@@ -561,7 +560,6 @@ namespace Oxide.Plugins
 				data["player"] = player.displayName;
 				AddToPlayerState(playerState, data);
 			}
-			*/
 			AddToServerStatus(@"OnWeaponFired: player={0} projectile={1}", player.displayName, projectile.name);
 		}
 
@@ -571,7 +569,7 @@ namespace Oxide.Plugins
 
 		object OnHorseLead(RidableHorse horse, BasePlayer player)
 		{
-			Array playerState = GetPlayerState(player.displayName);
+			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
 				JObject data = new JObject();
@@ -588,7 +586,7 @@ namespace Oxide.Plugins
 			BasePlayer player = BasePlayer.FindByID(hitch.OwnerID);
 			if (null != player)
 			{
-				Array playerState = GetPlayerState(player.displayName);
+				JArray playerState = GetPlayerState(player.displayName);
 				if (null != playerState)
 				{
 					JObject data = new JObject();
