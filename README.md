@@ -130,3 +130,7 @@ client.connect <SERVER_IP_ADDRESS>:28015
 * Idle animation - when no other events are happening
 
 * Attack animation - when player hits something
+
+* Random Black/Cyan - Switch active items
+
+* Blink Red - Can't afford to place!
