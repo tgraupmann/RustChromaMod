@@ -129,6 +129,8 @@ client.connect <SERVER_IP_ADDRESS>:28015
 
 * Idle animation - show hotkeys when no other events are happening
 
+* Blink White - player jumped
+
 * Attack animation - when player hits something
 
 * Random Black/Cyan - switch active items

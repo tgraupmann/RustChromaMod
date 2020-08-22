@@ -5887,6 +5887,14 @@ function getPlayerState() {
 					showEffect4Mouse();
 					showEffect4Mousepad();
 					break;
+				case 'OnPlayerJump':
+					showEffect5ChromaLink();
+					showEffect5Headset();
+					showEffect5Keyboard();
+					showEffect5Keypad();
+					showEffect5Mouse();
+					showEffect5Mousepad();
+					break;
 			}
 		}
 	}
@@ -6287,8 +6295,6 @@ function showEffect3Keyboard() {
     var frameCount = 40;
 	ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
-    var color1 = ChromaAnimation.getRGB(255,255,255);
-    var color2 = ChromaAnimation.getRGB(0,255,255);
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
 
@@ -6308,8 +6314,6 @@ function showEffect3ChromaLink() {
     var frameCount = 40;
     ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
-    var color1 = ChromaAnimation.getRGB(255,255,255);
-    var color2 = ChromaAnimation.getRGB(0,255,255);
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
 
@@ -6327,8 +6331,6 @@ function showEffect3Headset() {
     var frameCount = 40;
     ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
-    var color1 = ChromaAnimation.getRGB(255,255,255);
-    var color2 = ChromaAnimation.getRGB(0,255,255);
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
 
@@ -6346,8 +6348,6 @@ function showEffect3Mousepad() {
     var frameCount = 40;
     ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
-    var color1 = ChromaAnimation.getRGB(255,255,255);
-    var color2 = ChromaAnimation.getRGB(0,255,255);
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
 
@@ -6365,8 +6365,6 @@ function showEffect3Mouse() {
     var frameCount = 40;
     ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
-    var color1 = ChromaAnimation.getRGB(255,255,255);
-    var color2 = ChromaAnimation.getRGB(0,255,255);
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
 
@@ -6384,8 +6382,6 @@ function showEffect3Keypad() {
     var frameCount = 40;
     ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
-    var color1 = ChromaAnimation.getRGB(255,255,255);
-    var color2 = ChromaAnimation.getRGB(0,255,255);
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
 
@@ -6517,6 +6513,111 @@ function showEffect4Keypad() {
     var color1 = ChromaAnimation.getRGB(255,0,0);
     var color2 = ChromaAnimation.getRGB(255,255,0);
     ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect5Keyboard() {
+
+  var baseLayer = 'Animations/Blank_Keyboard.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 40;
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 255, 255);
+
+	ChromaAnimation.fadeStartFrames(baseLayer, 10);
+    ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
+
+    ChromaAnimation.setChromaCustomFlag(baseLayer, true);
+    ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+    
+	ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect5ChromaLink() {
+  var baseLayer = 'Animations/Blank_ChromaLink.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 40;
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 255, 255);
+
+	ChromaAnimation.fadeStartFrames(baseLayer, 10);
+    ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect5Headset() {
+  var baseLayer = 'Animations/Blank_Headset.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 40;
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 255, 255);
+
+	ChromaAnimation.fadeStartFrames(baseLayer, 10);
+    ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect5Mousepad() {
+  var baseLayer = 'Animations/Blank_Mousepad.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 40;
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 255, 255);
+
+	ChromaAnimation.fadeStartFrames(baseLayer, 10);
+    ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect5Mouse() {
+  var baseLayer = 'Animations/Blank_Mouse.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 40;
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 255, 255);
+
+	ChromaAnimation.fadeStartFrames(baseLayer, 10);
+    ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect5Keypad() {
+  var baseLayer = 'Animations/Blank_Keypad.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 40;
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 255, 255);
+
+	ChromaAnimation.fadeStartFrames(baseLayer, 10);
+    ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
 
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
 
