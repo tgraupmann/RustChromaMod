@@ -5895,6 +5895,26 @@ function getPlayerState() {
 					showEffect5Mouse();
 					showEffect5Mousepad();
 					break;
+				case 'OnPlayerDuck':
+					/*
+					showEffect6ChromaLink();
+					showEffect6Headset();
+					showEffect6Keyboard();
+					showEffect6Keypad();
+					showEffect6Mouse();
+					showEffect6Mousepad();
+					*/
+					break;
+				case 'OnPlayerSprint':
+					/*
+					showEffect7ChromaLink();
+					showEffect7Headset();
+					showEffect7Keyboard();
+					showEffect7Keypad();
+					showEffect7Mouse();
+					showEffect7Mousepad();
+					*/
+					break;
 			}
 		}
 	}
