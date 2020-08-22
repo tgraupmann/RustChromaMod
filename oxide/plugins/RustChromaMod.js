@@ -43,19 +43,22 @@ function detectChromaSDK() {
       console.log('Chroma initialized!');
 
     } else {
-     
-      showChromaProblem();
+    
+	  console.log('ChromaSDK is too old!', this.responseText);
+      //showChromaProblem();
 
       //Redetect Chroma
       setTimeout(function() { detectChromaSDK(); }, 5000);
     }
   });
   oReq.ontimeout = function() {
-    showChromaProblem();
+    //showChromaProblem();
+	console.log('ChromaSDK timed out!');
     setTimeout(function() { detectChromaSDK(); }, 5000);
   };
   oReq.onerror = function() {
-    showChromaProblem();
+    //showChromaProblem();
+	console.log('ChromaSDK HTTP error!');
     setTimeout(function() { detectChromaSDK(); }, 5000);
   };
   oReq.open("GET", "https://chromasdk.io:54236/razer/chromasdk");
