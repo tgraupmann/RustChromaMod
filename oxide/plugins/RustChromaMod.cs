@@ -380,10 +380,17 @@ namespace Oxide.Plugins
 			AddToServerStatus(@"OnPlayerLanded: Player={0}", player.displayName);
 		}
 
-		void OnPlayerLootEnd(PlayerLoot inventory)
+		void OnLootEntityEnd(BasePlayer player, BaseCombatEntity entity)
 		{
-			// find player
-			AddToServerStatus(@"OnPlayerLootEnd: Inventory={0}", inventory);
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnLootEntityEnd";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
+			AddToServerStatus(@"OnLootEntityEnd: Player={0}", player.displayName);
 		}
 
 		object OnPlayerAssist(BasePlayer target, BasePlayer player)
