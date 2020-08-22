@@ -571,7 +571,6 @@ namespace Oxide.Plugins
 
 		object OnHorseLead(RidableHorse horse, BasePlayer player)
 		{
-			/*
 			Array playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -580,15 +579,25 @@ namespace Oxide.Plugins
 				data["player"] = player.displayName;
 				AddToPlayerState(playerState, data);
 			}
-			*/
 			AddToServerStatus(@"OnHorseLead: Player={0}", player.displayName);
 			return null;
 		}
 
 		object OnHorseHitch(RidableHorse horse, HitchTrough hitch)
 		{
-			// get player
-			AddToServerStatus(@"OnHorseHitch: Horse={0}", horse);
+			BasePlayer player = BasePlayer.FindByID(hitch.OwnerID);
+			if (null != player)
+			{
+				Array playerState = GetPlayerState(player.displayName);
+				if (null != playerState)
+				{
+					JObject data = new JObject();
+					data[PLAYER_STATE_EVENT] = "OnHorseHitch";
+					data["player"] = player.displayName;
+					AddToPlayerState(playerState, data);
+				}
+				AddToServerStatus(@"OnHorseHitch: Player={0}", player.displayName);
+			}
 			return null;
 		}
 
