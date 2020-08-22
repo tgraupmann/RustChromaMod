@@ -106,3 +106,19 @@ connect <SERVER_IP_ADDRESS>:28015
 ```
 client.connect <SERVER_IP_ADDRESS>:28015
 ```
+
+## Razer Chroma RGB
+
+* In order to see Chroma RGB events, Install [Synapse and the Chroma Connect module](https://www.razer.com/synapse-3)
+
+* Open the browser on the server mod page default port 5000. [http://SERVER_IP_ADDRESS:5000](http://localhost:5000)
+
+* Select the player username to see Chroma RGB events for that player.
+
+* Even better, if you are streaming, send your [Chroma RGB events to your viewers](https://www.microsoft.com/store/apps/9PG8DNKL06M6)
+
+### Chroma Events
+
+* Idle animation - when no other events are happening
+
+* Attack animation - when player hits something
