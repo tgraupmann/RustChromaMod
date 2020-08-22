@@ -129,7 +129,11 @@ client.connect <SERVER_IP_ADDRESS>:28015
 
 * Idle animation - show hotkeys when no other events are happening
 
-* Blink White - player jumped
+* Blink White - player jump/swim
+
+* Duck sprite - player duck
+
+* Top down scrolling bars - player sprint
 
 * Attack animation - when player hits something
 

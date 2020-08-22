@@ -614,7 +614,29 @@ namespace Oxide.Plugins
 					data["player"] = player.displayName;
 					AddToPlayerState(playerState, data);
 				}
-				AddToServerStatus(@"OnPlayerJump: Player={0}", player.displayName);
+				//AddToServerStatus(@"OnPlayerJump: Player={0}", player.displayName);
+            }
+			else if (input.WasJustPressed(BUTTON.DUCK)) {
+				JArray playerState = GetPlayerState(player.displayName);
+				if (null != playerState)
+				{
+					JObject data = new JObject();
+					data[PLAYER_STATE_EVENT] = "OnPlayerDuck";
+					data["player"] = player.displayName;
+					AddToPlayerState(playerState, data);
+				}
+				AddToServerStatus(@"OnPlayerDuck: Player={0}", player.displayName);
+            }
+			else if (input.WasJustPressed(BUTTON.SPRINT)) {
+				JArray playerState = GetPlayerState(player.displayName);
+				if (null != playerState)
+				{
+					JObject data = new JObject();
+					data[PLAYER_STATE_EVENT] = "OnPlayerSprint";
+					data["player"] = player.displayName;
+					AddToPlayerState(playerState, data);
+				}
+				AddToServerStatus(@"OnPlayerSprint: Player={0}", player.displayName);
             }
 		}
 		
