@@ -79,7 +79,7 @@ RustDedicated.exe -batchmode +server.ip 0.0.0.0 +server.port 28015 +server.tickr
 
 ## Admin
 
-* Get your 64-bit Steam id: [http://steamidconverter.com/(http://steamidconverter.com/)
+* Get your 64-bit Steam id or look it up - [steamidconverter.com](http://steamidconverter.com/)
 
 * Create a text file at `C:\steamcmd\steamapps\rust_server\server\dev_rust_chroma_mod\cfg\users.cfg`
 
