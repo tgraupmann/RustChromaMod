@@ -54,7 +54,42 @@ cd "C:\steamcmd\steamapps\rust_server\"
 RustDedicated.exe -batchmode +server.ip 0.0.0.0 +server.port 28015 +server.tickrate 10 +server.hostname "RUST Chroma Mod" +server.identity "dev_rust_chroma_mod" +server.seed 793197 +server.maxplayers 50 +server.worldsize 3000 +server.saveinterval 600 +rcon.ip 0.0.0.0 +rcon.port 28016 +rcon.password "Your_Rcon_Password" -logfile "logfilename.log"
 ```
 
-### Run RUST - Game Client
+* Exit the dedicated server with `Control` + `C`
+
+## Create the Chroma RGB Mod
+
+* [Getting Started with uMod](https://umod.org/documentation/getting-started)
+
+* [Universal Events](https://umod.org/documentation/games/universal#unload)
+
+* [RUST Events](https://umod.org/documentation/games/rust)
+
+## Setup
+
+* Copy [RustChromaMod.js](oxide/plugins/RustChromaMod.js) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
+
+* Copy [RustChromaMod.cs](oxide/plugins/RustChromaMod.cs) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
+
+* Copy Chroma Animations from [Animations](oxide/plugins/Animations) to `C:\steamcmd\steamapps\rust_server\oxide\plugins\Animations`
+
+* Disable sandbox: Create an empty text file `C:\steamcmd\steamapps\rust_server\RustDedicated_Data\Managed\oxide.disable-sandbox`
+
+* Relaunch the dedicated RUST server
+
+
+## Admin
+
+* Get your 64-bit Steam id: [http://steamidconverter.com/(http://steamidconverter.com/)
+
+* Create a text file at `C:\steamcmd\steamapps\rust_server\server\dev_rust_chroma_mod\cfg\users.cfg`
+
+* Add the admin entry:
+
+```
+ownerid "64_bit_steam_id" "optional_user_name" "optional_reason"
+```
+
+## Run RUST - Game Client
 
 * On the main menu open the console with `F1`
 
@@ -71,19 +106,3 @@ connect <SERVER_IP_ADDRESS>:28015
 ```
 client.connect <SERVER_IP_ADDRESS>:28015
 ```
-
-## Creating the Chroma RGB Mod
-
-* [Getting Started with uMod](https://umod.org/documentation/getting-started)
-
-* Bind Chroma to [RustHooks.cs](https://github.com/OxideMod/Oxide.Rust/blob/develop/src/RustHooks.cs) game events
-
-## Setup
-
-* Copy [RustChromaMod.js](oxide/plugins/RustChromaMod.js) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
-
-* Copy [RustChromaMod.cs](oxide/plugins/RustChromaMod.cs) to `C:\steamcmd\steamapps\rust_server\oxide\plugins`
-
-* Disable sandbox: Create an empty text file `C:\steamcmd\steamapps\rust_server\RustDedicated_Data\Managed\oxide.disable-sandbox`
-
-* Launch the dedicated RUST server
