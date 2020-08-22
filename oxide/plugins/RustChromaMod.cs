@@ -600,5 +600,24 @@ namespace Oxide.Plugins
 		}
 
 		#endregion Horse Game Events
+		
+		#region Input Events
+		
+		void OnPlayerInput(BasePlayer player, InputState input)
+		{
+			if (input.WasJustPressed(BUTTON.JUMP)) {
+				JArray playerState = GetPlayerState(player.displayName);
+				if (null != playerState)
+				{
+					JObject data = new JObject();
+					data[PLAYER_STATE_EVENT] = "OnPlayerJump";
+					data["player"] = player.displayName;
+					AddToPlayerState(playerState, data);
+				}
+				AddToServerStatus(@"OnPlayerJump: Player={0}", player.displayName);
+            }
+		}
+		
+		#endregion Input Events
 	}
 }
