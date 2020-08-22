@@ -38,7 +38,7 @@ function detectChromaSDK() {
       chromaSDK.init();
       chromaIsInitialized = true;
       
-      //showChromaReady();
+      gameChromaReady();
       
       console.log('Chroma initialized!');
 
@@ -187,12 +187,23 @@ function getPlayerState() {
 		var data = json[i];
 		//console.log('selectedPlayer', selectedPlayer, 'player', data.player, 'event', data.event);
 		if (selectedPlayer != '' &&
-			data.player == selectedPlayer) {
-			console.log('selected player', selectedPlayer, data.event);
+			data.player == selectedPlayer &&
+			chromaIsInitialized) {
+			//console.log('selected player', selectedPlayer, data.event);
 			events += JSON.stringify(data);
 			events += '<br/>';
 			//events += data.event;
 			//events += '<br/>';
+			switch (data.event) {
+				case 'OnPlayerAttack':
+					showEffect1ChromaLink();
+					showEffect1Headset();
+					showEffect1Keyboard();
+					showEffect1Keypad();
+					showEffect1Mouse();
+					showEffect1Mousepad();
+					break;
+			}
 		}
 	}
 	if (lastPlayerState != events) {
@@ -239,9 +250,187 @@ function getServerStatus() {
   oReq.send();
 }
 
+function setupIdleAnimation(sourceAnimation, idleAnimation, device) {
+	
+	ChromaAnimation.closeAnimation(sourceAnimation);
+	ChromaAnimation.closeAnimation(idleAnimation);
+	
+	ChromaAnimation.openAnimation(sourceAnimation, function(baseAnimation) {
+
+		var color1 = ChromaAnimation.getRGB(16,16,16);
+		var color2 = ChromaAnimation.getRGB(48,48,0);
+		ChromaAnimation.multiplyColorLerpAllFrames(idleAnimation, color1, color2);
+		
+		ChromaAnimation.copyAnimation(sourceAnimation, idleAnimation);
+		
+		ChromaAnimation.setIdleAnimation(idleAnimation);
+		ChromaAnimation.useIdleAnimation(device, true);
+	});
+}
+
+function gameChromaReady() {
+	
+	setupIdleAnimation('Animations/BlackAndWhiteRainbow_ChromaLink.chroma',
+		'Animations/Idle_ChromaLink.chroma',
+		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_ChromaLink));
+	
+	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Headset.chroma',
+		'Animations/Idle_ChromaLink.chroma',
+		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Headset));
+		
+	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Keyboard.chroma',
+		'Animations/Idle_ChromaLink.chroma',
+		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Keyboard));
+		
+	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Keypad.chroma',
+		'Animations/Idle_ChromaLink.chroma',
+		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Keypad));
+		
+	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Mouse.chroma',
+		'Animations/Idle_ChromaLink.chroma',
+		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Mouse));
+		
+	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Mousepad.chroma',
+		'Animations/Idle_ChromaLink.chroma',
+		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Mousepad));
+}
+
+
+function showEffect1Keyboard() {
+  handleButtonClick(showEffect1);
+
+  var baseLayer = 'Animations/Blank_Keyboard.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(16,16,16);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.setChromaCustomFlag(baseLayer, true);
+    ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+    
+	ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect1ChromaLink() {
+  var baseLayer = 'Animations/Blank_ChromaLink.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(16,16,16);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect1Headset() {
+  var baseLayer = 'Animations/Blank_Headset.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(16,16,16);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect1Mousepad() {
+  var baseLayer = 'Animations/Blank_Mousepad.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(16,16,16);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect1Mouse() {
+  var baseLayer = 'Animations/Blank_Mouse.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(16,16,16);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect1Keypad() {
+  var baseLayer = 'Animations/Blank_Keypad.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(16,16,16);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
 
 $( document ).ready(function() {
   getPlayers();
   getPlayerState();
   getServerStatus();
 });
+
+

@@ -33,7 +33,7 @@ namespace Oxide.Plugins
 		private StringBuilder _mDebug = new StringBuilder();
 		private System.Object _mLock = null;
 		private Dictionary<string, JArray> _mPlayerStates = null;
-		
+
 		const string PLAYER_STATE_EVENT = "event";
 
 		public RustChromaMod()
@@ -126,7 +126,7 @@ namespace Oxide.Plugins
 			}
 			return script;
 		}
-		
+
 		JArray GetPlayerState(string displayName)
 		{
 			if (string.IsNullOrEmpty(displayName))
@@ -148,7 +148,7 @@ namespace Oxide.Plugins
 			}
 			return result;
 		}
-		
+
 		void AddToPlayerState(JArray playerState, JObject data)
 		{
 			lock (_mLock)
@@ -172,6 +172,30 @@ namespace Oxide.Plugins
 						{
 							if (string.IsNullOrEmpty(context.Request.Url.LocalPath))
 							{
+							}
+							else if (context.Request.Url.LocalPath.StartsWith("/Animations/"))
+							{
+								try
+								{
+									string path = @"oxide\plugins\" + context.Request.Url.LocalPath;
+									byte[] buffer = null;
+									using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+									{
+										buffer = new byte[fs.Length];
+										fs.Read(buffer, 0, buffer.Length);										
+									}
+
+									context.Response.ContentEncoding = Encoding.UTF8;
+									context.Response.AddHeader("ContentType", "application/octet-stream");
+									context.Response.AddHeader("Cache-Control", "no-cache");
+									context.Response.OutputStream.Write(buffer, 0, buffer.Length);
+									context.Response.OutputStream.Flush();
+									context.Response.Close();
+								}
+								catch (System.Exception)
+								{
+									PrintToConsole("Failed to read Javascript!");
+								}
 							}
 							else if (context.Request.Url.LocalPath == "/status.html")
 							{
@@ -398,7 +422,7 @@ namespace Oxide.Plugins
 		{
 			return (item == null || item.info == null || item.info.displayName == null || string.IsNullOrEmpty(item.info.displayName.english)) ? "none" : item.info.displayName.english;
 		}
-		
+
 		void OnActiveItemChanged(BasePlayer player, Item oldItem, Item newItem)
 		{
 			JArray playerState = GetPlayerState(player.displayName);
