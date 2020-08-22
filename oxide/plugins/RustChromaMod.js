@@ -782,6 +782,10 @@ var ChromaAnimation = {
           animation.playFrame();
           if (idleAnimation != animation) {
             useIdleAnimation = false;
+			
+			if (idleAnimation != undefined) {
+			  idleAnimation.FrameTime = animation.FrameTime;
+			}
           }
         }
       }
@@ -791,14 +795,6 @@ var ChromaAnimation = {
         idleAnimation != undefined) {
 		if (useIdleAnimation) {
           idleAnimation.playFrame();
-		} else {
-          if (idleAnimation.FrameTime < Date.now()) {
-            var duration = idleAnimation.getDuration();
-            if (duration < 0.1) {
-              duration = 0.1;
-            }
-            idleAnimation.FrameTime = Date.now() + duration * 1000;
-		  }
 		}
       }
     }
@@ -814,6 +810,10 @@ var ChromaAnimation = {
           animation.playFrame();
           if (idleAnimation != animation) {
             useIdleAnimation = false;
+			
+			if (idleAnimation != undefined) {
+			  idleAnimation.FrameTime = animation.FrameTime;
+			}
           }
         }
       }
@@ -823,14 +823,6 @@ var ChromaAnimation = {
         idleAnimation != undefined) {
 		if (useIdleAnimation) {
           idleAnimation.playFrame();
-		} else {
-		  if (idleAnimation.FrameTime < Date.now()) {
-			  var duration = idleAnimation.getDuration();
-			  if (duration < 0.1) {
-			    duration = 0.1;
-              }
-			  idleAnimation.FrameTime = Date.now() + duration * 1000;
-		  }
 		}
 	  }
     }
@@ -5379,7 +5371,8 @@ ChromaAnimation1D.prototype = {
     }
   },
   playFrame: function() {
-    if (this.FrameTime < Date.now()) {
+    if (this.FrameTime < Date.now() &&
+	  (Date.now() - this.FrameTime) < 3000) {
       return;
     }
     if (this.CurrentIndex < this.Frames.length) {
@@ -5606,7 +5599,8 @@ ChromaAnimation2D.prototype = {
     }
   },
   playFrame: function() {
-    if (this.FrameTime < Date.now()) {
+    if (this.FrameTime < Date.now() &&
+	  (Date.now() - this.FrameTime) < 3000) {
       return;
     }
     if (this.CurrentIndex < this.Frames.length) {
