@@ -127,10 +127,10 @@ client.connect <SERVER_IP_ADDRESS>:28015
 
 ### Chroma Events
 
-* Idle animation - when no other events are happening
+* Idle animation - show hotkeys when no other events are happening
 
 * Attack animation - when player hits something
 
-* Random Black/Cyan - Switch active items
+* Random Black/Cyan - switch active items
 
-* Blink Red - Can't afford to place!
+* Blink Red - can't afford to place!

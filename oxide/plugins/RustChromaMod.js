@@ -5879,6 +5879,14 @@ function getPlayerState() {
 						showEffect3Mousepad();
 					}
 					break;
+				case 'OnMeleeThrown':
+					showEffect4ChromaLink();
+					showEffect4Headset();
+					showEffect4Keyboard();
+					showEffect4Keypad();
+					showEffect4Mouse();
+					showEffect4Mousepad();
+					break;
 			}
 		}
 	}
@@ -5933,12 +5941,45 @@ function setupIdleAnimation(sourceAnimation, idleAnimation, device) {
 	
 	ChromaAnimation.openAnimation(sourceAnimation, function(baseAnimation) {
 		
-		ChromaAnimation.reduceFrames(sourceAnimation, 2);
-		ChromaAnimation.reduceFrames(sourceAnimation, 2);
-
-		var color1 = ChromaAnimation.getRGB(255,255,0);
-		var color2 = ChromaAnimation.getRGB(0,0,255);
-		ChromaAnimation.multiplyTargetColorLerpAllFrames(sourceAnimation, color1, color2);
+		var frameCount = 50;
+		ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 48, 48, 48);
+		
+		if (device == EChromaSDKDeviceEnum.DE_Keyboard) {
+          var keys = [];
+          keys.push(RZKEY.RZKEY_W);
+          keys.push(RZKEY.RZKEY_A);
+          keys.push(RZKEY.RZKEY_S);
+          keys.push(RZKEY.RZKEY_D);
+		  keys.push(RZKEY.RZKEY_LSHIFT);
+		  keys.push(RZKEY.RZKEY_LCTRL);
+		  keys.push(RZKEY.RZKEY_LALT);
+		  keys.push(RZKEY.RZKEY_SPACE);
+          var color = ChromaAnimation.getRGB(255,105,20);
+          ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
+		  var keys = [];
+		  keys.push(RZKEY.RZKEY_F1);
+		  keys.push(RZKEY.RZKEY_G);
+		  var color = ChromaAnimation.getRGB(0,255,255);
+		  ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
+		  var keys = [];
+		  keys.push(RZKEY.RZKEY_E);
+		  keys.push(RZKEY.RZKEY_N);
+		  var color = ChromaAnimation.getRGB(0,255,0);
+          ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
+		  var keys = [];
+		  keys.push(RZKEY.RZKEY_1);
+		  keys.push(RZKEY.RZKEY_2);
+		  keys.push(RZKEY.RZKEY_3);
+		  keys.push(RZKEY.RZKEY_4);
+		  keys.push(RZKEY.RZKEY_5);
+		  keys.push(RZKEY.RZKEY_6);
+		  var color = ChromaAnimation.getRGB(255,255,255);
+          ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
+		  var keys = [];
+		  keys.push(RZKEY.RZKEY_V);
+		  var color = ChromaAnimation.getRGB(255,0,0);
+          ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
+		}
 		
 		ChromaAnimation.overrideFrameDuration(sourceAnimation, 0.033);
 		
@@ -5952,27 +5993,27 @@ function setupIdleAnimation(sourceAnimation, idleAnimation, device) {
 
 function gameChromaReady() {
 	
-	setupIdleAnimation('Animations/BlackAndWhiteRainbow_ChromaLink.chroma',
+	setupIdleAnimation('Animations/Blank_ChromaLink.chroma',
 		'Animations/Idle_ChromaLink.chroma',
 		EChromaSDKDeviceEnum.DE_ChromaLink);
 	
-	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Headset.chroma',
+	setupIdleAnimation('Animations/Blank_Headset.chroma',
 		'Animations/Idle_Headset.chroma',
 		EChromaSDKDeviceEnum.DE_Headset);
 		
-	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Keyboard.chroma',
+	setupIdleAnimation('Animations/Blank_Keyboard.chroma',
 		'Animations/Idle_Keyboard.chroma',
 		EChromaSDKDeviceEnum.DE_Keyboard);
 		
-	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Keypad.chroma',
+	setupIdleAnimation('Animations/Blank_Keypad.chroma',
 		'Animations/Idle_Keypad.chroma',
 		EChromaSDKDeviceEnum.DE_Keypad);
 		
-	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Mouse.chroma',
+	setupIdleAnimation('Animations/Blank_Mouse.chroma',
 		'Animations/Idle_Mouse.chroma',
 		EChromaSDKDeviceEnum.DE_Mouse);
 		
-	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Mousepad.chroma',
+	setupIdleAnimation('Animations/Blank_Mousepad.chroma',
 		'Animations/Idle_Mousepad.chroma',
 		EChromaSDKDeviceEnum.DE_Mousepad);
 }
@@ -6244,7 +6285,7 @@ function showEffect3Keyboard() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 255, 0, 0);
+	ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
     var color1 = ChromaAnimation.getRGB(255,255,255);
     var color2 = ChromaAnimation.getRGB(0,255,255);
@@ -6265,7 +6306,7 @@ function showEffect3ChromaLink() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
     var color1 = ChromaAnimation.getRGB(255,255,255);
     var color2 = ChromaAnimation.getRGB(0,255,255);
@@ -6284,7 +6325,7 @@ function showEffect3Headset() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
     var color1 = ChromaAnimation.getRGB(255,255,255);
     var color2 = ChromaAnimation.getRGB(0,255,255);
@@ -6303,7 +6344,7 @@ function showEffect3Mousepad() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
     var color1 = ChromaAnimation.getRGB(255,255,255);
     var color2 = ChromaAnimation.getRGB(0,255,255);
@@ -6322,7 +6363,7 @@ function showEffect3Mouse() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
     var color1 = ChromaAnimation.getRGB(255,255,255);
     var color2 = ChromaAnimation.getRGB(0,255,255);
@@ -6341,7 +6382,7 @@ function showEffect3Keypad() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
 
     var color1 = ChromaAnimation.getRGB(255,255,255);
     var color2 = ChromaAnimation.getRGB(0,255,255);
@@ -6353,6 +6394,136 @@ function showEffect3Keypad() {
     ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
+
+function showEffect4Keyboard() {
+
+  var baseLayer = 'Animations/Blank_Keyboard.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(255,255,0);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.setChromaCustomFlag(baseLayer, true);
+    ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+    
+	ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect4ChromaLink() {
+  var baseLayer = 'Animations/Blank_ChromaLink.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(255,255,0);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect4Headset() {
+  var baseLayer = 'Animations/Blank_Headset.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(255,255,0);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect4Mousepad() {
+  var baseLayer = 'Animations/Blank_Mousepad.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(255,255,0);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect4Mouse() {
+  var baseLayer = 'Animations/Blank_Mouse.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(255,255,0);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
+function showEffect4Keypad() {
+  var baseLayer = 'Animations/Blank_Keypad.chroma';
+  ChromaAnimation.closeAnimation(baseLayer);
+  ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
+
+    var frameCount = 8;
+    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
+    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+    ChromaAnimation.duplicateFrames(baseLayer);
+
+    var color1 = ChromaAnimation.getRGB(255,0,0);
+    var color2 = ChromaAnimation.getRGB(255,255,0);
+    ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
+
+    ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
+
+    ChromaAnimation.playAnimation(baseLayer, false);
+  });
+}
+
 
 
 $( document ).ready(function() {
