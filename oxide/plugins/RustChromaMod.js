@@ -269,27 +269,27 @@ function gameChromaReady() {
 	
 	setupIdleAnimation('Animations/BlackAndWhiteRainbow_ChromaLink.chroma',
 		'Animations/Idle_ChromaLink.chroma',
-		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_ChromaLink));
+		EChromaSDKDeviceEnum.DE_ChromaLink);
 	
 	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Headset.chroma',
-		'Animations/Idle_ChromaLink.chroma',
-		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Headset));
+		'Animations/Idle_Headset.chroma',
+		EChromaSDKDeviceEnum.DE_Headset);
 		
 	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Keyboard.chroma',
-		'Animations/Idle_ChromaLink.chroma',
-		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Keyboard));
+		'Animations/Idle_Keyboard.chroma',
+		EChromaSDKDeviceEnum.DE_Keyboard);
 		
 	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Keypad.chroma',
-		'Animations/Idle_ChromaLink.chroma',
-		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Keypad));
+		'Animations/Idle_Keypad.chroma',
+		EChromaSDKDeviceEnum.DE_Keypad);
 		
 	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Mouse.chroma',
-		'Animations/Idle_ChromaLink.chroma',
-		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Mouse));
+		'Animations/Idle_Mouse.chroma',
+		EChromaSDKDeviceEnum.DE_Mouse);
 		
 	setupIdleAnimation('Animations/BlackAndWhiteRainbow_Mousepad.chroma',
-		'Animations/Idle_ChromaLink.chroma',
-		ChromaAnimation.useIdleAnimation(EChromaSDKDeviceEnum.DE_Mousepad));
+		'Animations/Idle_Mousepad.chroma',
+		EChromaSDKDeviceEnum.DE_Mousepad);
 }
 
 
