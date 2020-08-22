@@ -113,6 +113,8 @@ client.connect <SERVER_IP_ADDRESS>:28015
 
 * Open the browser on the server mod page default port 5000. [http://SERVER_IP_ADDRESS:5000](http://localhost:5000)
 
+* Be aware that you may have to update firewall rules to allow HTTP traffic on your selected port
+
 * Select the player username to see Chroma RGB events for that player.
 
 * Even better, if you are streaming, send your [Chroma RGB events to your viewers](https://www.microsoft.com/store/apps/9PG8DNKL06M6)
@@ -122,3 +124,9 @@ client.connect <SERVER_IP_ADDRESS>:28015
 * Idle animation - when no other events are happening
 
 * Attack animation - when player hits something
+
+## Screenshots
+
+* Pay no attention to the look of the thing, the web UI hasn't been skinned. Instead look at your surronding hardware and/or your stream overlays!
+
+![image_1](images/image_1.png)
