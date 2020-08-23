@@ -6049,8 +6049,8 @@ function showEffect1Keyboard() {
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
-    var color1 = ChromaAnimation.getRGB(255,0,0);
-    var color2 = ChromaAnimation.getRGB(16,16,16);
+    var color1 = ChromaAnimation.getRGB(16,16,16);
+    var color2 = ChromaAnimation.getRGB(255,0,0);
     ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
 
     ChromaAnimation.setChromaCustomFlag(baseLayer, true);
@@ -6066,8 +6066,8 @@ function showEffect1ChromaLink() {
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
-    var color1 = ChromaAnimation.getRGB(255,0,0);
-    var color2 = ChromaAnimation.getRGB(16,16,16);
+    var color1 = ChromaAnimation.getRGB(16,16,16);
+    var color2 = ChromaAnimation.getRGB(255,0,0);
     ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
 
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
@@ -6081,8 +6081,8 @@ function showEffect1Headset() {
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
-    var color1 = ChromaAnimation.getRGB(255,0,0);
-    var color2 = ChromaAnimation.getRGB(16,16,16);
+    var color1 = ChromaAnimation.getRGB(16,16,16);
+    var color2 = ChromaAnimation.getRGB(255,0,0);
     ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
 
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
@@ -6096,8 +6096,8 @@ function showEffect1Mousepad() {
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
-    var color1 = ChromaAnimation.getRGB(255,0,0);
-    var color2 = ChromaAnimation.getRGB(16,16,16);
+    var color1 = ChromaAnimation.getRGB(16,16,16);
+    var color2 = ChromaAnimation.getRGB(255,0,0);
     ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
 
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
@@ -6111,8 +6111,8 @@ function showEffect1Mouse() {
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
-    var color1 = ChromaAnimation.getRGB(255,0,0);
-    var color2 = ChromaAnimation.getRGB(16,16,16);
+    var color1 = ChromaAnimation.getRGB(16,16,16);
+    var color2 = ChromaAnimation.getRGB(255,0,0);
     ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
 
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
@@ -6126,8 +6126,8 @@ function showEffect1Keypad() {
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
-    var color1 = ChromaAnimation.getRGB(255,0,0);
-    var color2 = ChromaAnimation.getRGB(16,16,16);
+    var color1 = ChromaAnimation.getRGB(16,16,16);
+    var color2 = ChromaAnimation.getRGB(255,0,0);
     ChromaAnimation.multiplyTargetColorLerpAllFrames(baseLayer, color1, color2);
 
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
