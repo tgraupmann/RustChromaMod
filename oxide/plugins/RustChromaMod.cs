@@ -178,19 +178,28 @@ namespace Oxide.Plugins
 								try
 								{
 									string path = @"oxide\plugins\" + context.Request.Url.LocalPath;
-									byte[] buffer = null;
-									using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+									if (File.Exists(path))
 									{
-										buffer = new byte[fs.Length];
-										fs.Read(buffer, 0, buffer.Length);										
+										byte[] buffer = null;
+										using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+										{
+											if (fs.Length > 0)
+											{
+												buffer = new byte[fs.Length];
+												fs.Read(buffer, 0, buffer.Length);										
+											}
+										}
+										
+										if (null != buffer)
+										{
+											context.Response.ContentEncoding = Encoding.UTF8;
+											context.Response.AddHeader("ContentType", "application/octet-stream");
+											context.Response.AddHeader("Cache-Control", "no-cache");
+											context.Response.OutputStream.Write(buffer, 0, buffer.Length);
+											context.Response.OutputStream.Flush();
+											context.Response.Close();
+										}
 									}
-
-									context.Response.ContentEncoding = Encoding.UTF8;
-									context.Response.AddHeader("ContentType", "application/octet-stream");
-									context.Response.AddHeader("Cache-Control", "no-cache");
-									context.Response.OutputStream.Write(buffer, 0, buffer.Length);
-									context.Response.OutputStream.Flush();
-									context.Response.Close();
 								}
 								catch (System.Exception)
 								{
