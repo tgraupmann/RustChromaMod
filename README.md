@@ -137,6 +137,6 @@ client.connect <SERVER_IP_ADDRESS>:28015
 
 * Attack animation - when player hits something
 
-* Random Black/Cyan - switch active items
+* Sliding cyan bars - switch active items
 
 * Blink Red - can't afford to place!
