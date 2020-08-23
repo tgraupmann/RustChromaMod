@@ -6045,15 +6045,9 @@ function gameChromaReady() {
 
 function showEffect1Keyboard() {
 
-  var baseLayer = 'Animations/Blank_Keyboard.chroma';
+  var baseLayer = 'Animations/Effect1_Keyboard.chroma';
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
-
-    var frameCount = 8;
-    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0);
-    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
 
     var color1 = ChromaAnimation.getRGB(255,0,0);
     var color2 = ChromaAnimation.getRGB(16,16,16);
@@ -6068,15 +6062,9 @@ function showEffect1Keyboard() {
 }
 
 function showEffect1ChromaLink() {
-  var baseLayer = 'Animations/Blank_ChromaLink.chroma';
+  var baseLayer = 'Animations/Effect1_ChromaLink.chroma';
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
-
-    var frameCount = 8;
-    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
-    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
 
     var color1 = ChromaAnimation.getRGB(255,0,0);
     var color2 = ChromaAnimation.getRGB(16,16,16);
@@ -6089,15 +6077,9 @@ function showEffect1ChromaLink() {
 }
 
 function showEffect1Headset() {
-  var baseLayer = 'Animations/Blank_Headset.chroma';
+  var baseLayer = 'Animations/Effect1_Headset.chroma';
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
-
-    var frameCount = 8;
-    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
-    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
 
     var color1 = ChromaAnimation.getRGB(255,0,0);
     var color2 = ChromaAnimation.getRGB(16,16,16);
@@ -6110,15 +6092,9 @@ function showEffect1Headset() {
 }
 
 function showEffect1Mousepad() {
-  var baseLayer = 'Animations/Blank_Mousepad.chroma';
+  var baseLayer = 'Animations/Effect1_Mousepad.chroma';
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
-
-    var frameCount = 8;
-    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
-    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
 
     var color1 = ChromaAnimation.getRGB(255,0,0);
     var color2 = ChromaAnimation.getRGB(16,16,16);
@@ -6131,15 +6107,9 @@ function showEffect1Mousepad() {
 }
 
 function showEffect1Mouse() {
-  var baseLayer = 'Animations/Blank_Mouse.chroma';
+  var baseLayer = 'Animations/Effect1_Mouse.chroma';
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
-
-    var frameCount = 8;
-    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
-    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
 
     var color1 = ChromaAnimation.getRGB(255,0,0);
     var color2 = ChromaAnimation.getRGB(16,16,16);
@@ -6152,15 +6122,9 @@ function showEffect1Mouse() {
 }
 
 function showEffect1Keypad() {
-  var baseLayer = 'Animations/Blank_Keypad.chroma';
+  var baseLayer = 'Animations/Effect1_Keypad.chroma';
   ChromaAnimation.closeAnimation(baseLayer);
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
-
-    var frameCount = 8;
-    ChromaAnimation.makeBlankFrames(baseLayer, frameCount, 0.1, 0);
-    ChromaAnimation.fillRandomColorsBlackAndWhiteAllFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
-    ChromaAnimation.duplicateFrames(baseLayer);
 
     var color1 = ChromaAnimation.getRGB(255,0,0);
     var color2 = ChromaAnimation.getRGB(16,16,16);
