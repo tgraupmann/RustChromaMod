@@ -6237,7 +6237,7 @@ function showEffect3Keyboard() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-	ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
+	ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 0, 0);
 
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
@@ -6256,7 +6256,7 @@ function showEffect3ChromaLink() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 0, 0);
 
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
@@ -6273,7 +6273,7 @@ function showEffect3Headset() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 0, 0);
 
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
@@ -6290,7 +6290,7 @@ function showEffect3Mousepad() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 0, 0);
 
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
@@ -6307,7 +6307,7 @@ function showEffect3Mouse() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 0, 0);
 
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
@@ -6324,7 +6324,7 @@ function showEffect3Keypad() {
   ChromaAnimation.openAnimation(baseLayer, function(baseAnimation) {
 
     var frameCount = 40;
-    ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 255, 0, 0);
+    ChromaAnimation.makeBlankFramesRGB(baseLayer, frameCount, 0.033, 255, 0, 0);
 
 	ChromaAnimation.fadeStartFrames(baseLayer, 10);
     ChromaAnimation.fadeEndFrames(baseLayer, frameCount - 10);
