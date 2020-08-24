@@ -5665,6 +5665,30 @@ ChromaAnimation2D.prototype = {
 };
 
 
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
 var chromaSDK = new ChromaSDK();
 var chromaIsInitialized = false;
 var browserTabIsVisible = true;
@@ -5672,7 +5696,7 @@ var pageHadFocus = undefined;
 var lastPlayers = '';
 var lastPlayerState = '';
 var lastServerStatus = '';
-var selectedPlayer = '';
+var selectedPlayer = getCookie('RustChromaMod_SelectedPlayer');
 
 
 function detectChromaSDK() {
@@ -5792,6 +5816,11 @@ function detectWindowFocus() {
 }
 
 
+function selectPlayer(player) {
+  setCookie('RustChromaMod_SelectedPlayer', player, 30);
+}
+
+
 function getPlayers() {
   var oReq = new XMLHttpRequest();
   oReq.timeout = 2000; // time in milliseconds
@@ -5805,9 +5834,9 @@ function getPlayers() {
 	Object.entries(json).forEach(([key, value]) => {
 		players += ' ';
 		if (selectedPlayer == value) {
-		  players += '<a style="color: #0F0; background-color: #222" onclick="selectedPlayer=\'' + value + '\';">' + value + '</a>';
+		  players += '<a style="color: #0F0; background-color: #222" onclick="selectPlayer(\'' + value + '\');">' + value + '</a>';
 		} else {
-		  players += '<a style="color: #000; background-color: #DDD" onclick="selectedPlayer=\'' + value + '\';">' + value + '</a>';
+		  players += '<a style="color: #000; background-color: #DDD" onclick="selectPlayer(\'' + value + '\');">' + value + '</a>';
 		}
 	});
 	// only need to display changes
