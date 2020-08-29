@@ -341,6 +341,43 @@ function getServerStatus() {
   oReq.send();
 }
 
+function setupHotKeys(animation) {
+  var keys = [];
+  keys.push(RZKEY.RZKEY_W);
+  keys.push(RZKEY.RZKEY_A);
+  keys.push(RZKEY.RZKEY_S);
+  keys.push(RZKEY.RZKEY_D);
+  keys.push(RZKEY.RZKEY_LSHIFT);
+  keys.push(RZKEY.RZKEY_LCTRL);
+  keys.push(RZKEY.RZKEY_LALT);
+  keys.push(RZKEY.RZKEY_SPACE);
+  var color = ChromaAnimation.getRGB(255,105,20);
+  ChromaAnimation.setKeysColorAllFrames(animation, keys, color);
+  var keys = [];
+  keys.push(RZKEY.RZKEY_F1);
+  keys.push(RZKEY.RZKEY_G);
+  var color = ChromaAnimation.getRGB(0,255,255);
+  ChromaAnimation.setKeysColorAllFrames(animation, keys, color);
+  var keys = [];
+  keys.push(RZKEY.RZKEY_E);
+  keys.push(RZKEY.RZKEY_N);
+  var color = ChromaAnimation.getRGB(0,255,0);
+  ChromaAnimation.setKeysColorAllFrames(animation, keys, color);
+  var keys = [];
+  keys.push(RZKEY.RZKEY_1);
+  keys.push(RZKEY.RZKEY_2);
+  keys.push(RZKEY.RZKEY_3);
+  keys.push(RZKEY.RZKEY_4);
+  keys.push(RZKEY.RZKEY_5);
+  keys.push(RZKEY.RZKEY_6);
+  var color = ChromaAnimation.getRGB(255,255,255);
+  ChromaAnimation.setKeysColorAllFrames(animation, keys, color);
+  var keys = [];
+  keys.push(RZKEY.RZKEY_V);
+  var color = ChromaAnimation.getRGB(255,0,0);
+  ChromaAnimation.setKeysColorAllFrames(animation, keys, color);
+}
+
 function setupIdleAnimation(sourceAnimation, idleAnimation, device) {
 	
 	ChromaAnimation.closeAnimation(sourceAnimation);
@@ -352,40 +389,7 @@ function setupIdleAnimation(sourceAnimation, idleAnimation, device) {
 		ChromaAnimation.makeBlankFramesRGB(sourceAnimation, frameCount, 0.033, 48, 48, 48);
 		
 		if (device == EChromaSDKDeviceEnum.DE_Keyboard) {
-          var keys = [];
-          keys.push(RZKEY.RZKEY_W);
-          keys.push(RZKEY.RZKEY_A);
-          keys.push(RZKEY.RZKEY_S);
-          keys.push(RZKEY.RZKEY_D);
-		  keys.push(RZKEY.RZKEY_LSHIFT);
-		  keys.push(RZKEY.RZKEY_LCTRL);
-		  keys.push(RZKEY.RZKEY_LALT);
-		  keys.push(RZKEY.RZKEY_SPACE);
-          var color = ChromaAnimation.getRGB(255,105,20);
-          ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
-		  var keys = [];
-		  keys.push(RZKEY.RZKEY_F1);
-		  keys.push(RZKEY.RZKEY_G);
-		  var color = ChromaAnimation.getRGB(0,255,255);
-		  ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
-		  var keys = [];
-		  keys.push(RZKEY.RZKEY_E);
-		  keys.push(RZKEY.RZKEY_N);
-		  var color = ChromaAnimation.getRGB(0,255,0);
-          ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
-		  var keys = [];
-		  keys.push(RZKEY.RZKEY_1);
-		  keys.push(RZKEY.RZKEY_2);
-		  keys.push(RZKEY.RZKEY_3);
-		  keys.push(RZKEY.RZKEY_4);
-		  keys.push(RZKEY.RZKEY_5);
-		  keys.push(RZKEY.RZKEY_6);
-		  var color = ChromaAnimation.getRGB(255,255,255);
-          ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
-		  var keys = [];
-		  keys.push(RZKEY.RZKEY_V);
-		  var color = ChromaAnimation.getRGB(255,0,0);
-          ChromaAnimation.setKeysColorAllFrames(sourceAnimation, keys, color);
+		  setupHotKeys(sourceAnimation);
 		}
 		
 		ChromaAnimation.overrideFrameDuration(sourceAnimation, 0.033);
@@ -440,6 +444,7 @@ function showEffect1Keyboard() {
     ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
     
+	setupHotKeys(baseLayer);
 	ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
@@ -534,6 +539,7 @@ function showEffect2Keyboard() {
     ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
     
+	setupHotKeys(baseLayer);
 	ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
@@ -629,6 +635,7 @@ function showEffect3Keyboard() {
     ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
     
+	setupHotKeys(baseLayer);
 	ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
@@ -738,6 +745,7 @@ function showEffect4Keyboard() {
     ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
     
+	setupHotKeys(baseLayer);
 	ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
@@ -863,6 +871,7 @@ function showEffect5Keyboard() {
     ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
     
+	setupHotKeys(baseLayer);
 	ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
@@ -966,6 +975,7 @@ function showEffect6Keyboard() {
     ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
     
+	setupHotKeys(baseLayer);
 	ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
@@ -1059,6 +1069,7 @@ function showEffect7Keyboard() {
     ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
     
+	setupHotKeys(baseLayer);
 	ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
@@ -1152,6 +1163,7 @@ function showEffect8Keyboard() {
     ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
     
+	setupHotKeys(baseLayer);
 	ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
@@ -1245,6 +1257,7 @@ function showEffect9Keyboard() {
     ChromaAnimation.setChromaCustomColorAllFrames(baseLayer);
     ChromaAnimation.overrideFrameDuration(baseLayer, 0.033);
     
+	setupHotKeys(baseLayer);
 	ChromaAnimation.playAnimation(baseLayer, false);
   });
 }
