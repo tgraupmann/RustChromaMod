@@ -140,3 +140,7 @@ client.connect <SERVER_IP_ADDRESS>:28015
 * Sliding cyan bars - switch active items
 
 * Blink Red - can't afford to place!
+
+* Gray/Cyan - player connect
+
+* Dark green/dark red - player death
