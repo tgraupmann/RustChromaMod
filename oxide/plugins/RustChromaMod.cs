@@ -136,14 +136,14 @@ namespace Oxide.Plugins
 			JArray result;
 			lock (_mLock)
 			{
-				if (_mPlayerStates.ContainsKey(displayName))
+				if (_mPlayerStates.ContainsKey(displayName.ToLower()))
 				{
-					result = _mPlayerStates[displayName];
+					result = _mPlayerStates[displayName.ToLower()];
 				}
 				else
 				{
 					result = new JArray();
-					_mPlayerStates[displayName] = result;
+					_mPlayerStates[displayName.ToLower()] = result;
 				}
 			}
 			return result;
@@ -217,7 +217,7 @@ namespace Oxide.Plugins
 									JArray data = new JArray();
 									foreach (KeyValuePair<string, JArray> kvp in _mPlayerStates)
 									{
-										data.Add(kvp.Key);
+										data.Add(kvp.Key.ToLower());
 									}
 									response = data.ToString();
 								}
@@ -240,9 +240,9 @@ namespace Oxide.Plugins
 											}
 										}
 									}
-									else if (_mPlayerStates.ContainsKey(selectedPlayer))
+									else if (_mPlayerStates.ContainsKey(selectedPlayer.ToLower()))
 									{
-										JArray playerData = _mPlayerStates[selectedPlayer];
+										JArray playerData = _mPlayerStates[selectedPlayer.ToLower()];
 										foreach (JObject eventData in playerData)
 										{
 											data.Add(eventData);
@@ -305,6 +305,10 @@ namespace Oxide.Plugins
 
 		void OnPlayerConnected(BasePlayer player)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -318,6 +322,10 @@ namespace Oxide.Plugins
 
 		void OnPlayerDisconnected(BasePlayer player, string reason)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -332,6 +340,10 @@ namespace Oxide.Plugins
 
 		object OnMessagePlayer(string message, BasePlayer player)
 		{
+			if (player.IsNpc)
+			{
+				return null;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -363,6 +375,10 @@ namespace Oxide.Plugins
 
 		object OnPlayerDeath(BasePlayer player, HitInfo info)
 		{
+			if (player.IsNpc)
+			{
+				return null;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -377,6 +393,10 @@ namespace Oxide.Plugins
 
 		void OnPlayerLanded(BasePlayer player, float num)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -391,6 +411,10 @@ namespace Oxide.Plugins
 
 		void OnLootEntityEnd(BasePlayer player, BaseCombatEntity entity)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -404,6 +428,10 @@ namespace Oxide.Plugins
 
 		object OnPlayerAssist(BasePlayer target, BasePlayer player)
 		{
+			if (player.IsNpc)
+			{
+				return null;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -420,6 +448,10 @@ namespace Oxide.Plugins
 
 		object OnPlayerRevive(BasePlayer reviver, BasePlayer player)
 		{
+			if (player.IsNpc)
+			{
+				return null;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -441,6 +473,10 @@ namespace Oxide.Plugins
 
 		void OnActiveItemChanged(BasePlayer player, Item oldItem, Item newItem)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -463,6 +499,10 @@ namespace Oxide.Plugins
 
 		void OnMapMarkerAdded(BasePlayer player, MapNote note)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -476,6 +516,10 @@ namespace Oxide.Plugins
 
 		void OnMapMarkersCleared(BasePlayer player, List<MapNote> notes)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -493,6 +537,10 @@ namespace Oxide.Plugins
 
 		void OnExplosiveThrown(BasePlayer player, BaseEntity entity, ThrownWeapon item)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -506,6 +554,10 @@ namespace Oxide.Plugins
 
 		void OnMeleeThrown(BasePlayer player, Item item)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -520,6 +572,10 @@ namespace Oxide.Plugins
 
 		object OnReloadWeapon(BasePlayer player, BaseProjectile projectile)
 		{
+			if (player.IsNpc)
+			{
+				return null;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -534,6 +590,10 @@ namespace Oxide.Plugins
 
 		void OnRocketLaunched(BasePlayer player, BaseEntity entity)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -547,6 +607,10 @@ namespace Oxide.Plugins
 
 		object OnSwitchAmmo(BasePlayer player, BaseProjectile projectile)
 		{
+			if (player.IsNpc)
+			{
+				return null;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -561,6 +625,10 @@ namespace Oxide.Plugins
 
 		void OnWeaponFired(BaseProjectile projectile, BasePlayer player, ItemModProjectile mod, ProtoBuf.ProjectileShoot projectiles)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -578,6 +646,10 @@ namespace Oxide.Plugins
 
 		object OnHorseLead(RidableHorse horse, BasePlayer player)
 		{
+			if (player.IsNpc)
+			{
+				return null;
+			}
 			JArray playerState = GetPlayerState(player.displayName);
 			if (null != playerState)
 			{
@@ -595,6 +667,10 @@ namespace Oxide.Plugins
 			BasePlayer player = BasePlayer.FindByID(hitch.OwnerID);
 			if (null != player)
 			{
+				if (player.IsNpc)
+				{
+					return null;
+				}
 				JArray playerState = GetPlayerState(player.displayName);
 				if (null != playerState)
 				{
@@ -614,6 +690,10 @@ namespace Oxide.Plugins
 		
 		void OnPlayerInput(BasePlayer player, InputState input)
 		{
+			if (player.IsNpc)
+			{
+				return;
+			}
 			if (input.WasJustPressed(BUTTON.JUMP)) {
 				JArray playerState = GetPlayerState(player.displayName);
 				if (null != playerState)
