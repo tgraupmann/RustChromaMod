@@ -1,6 +1,8 @@
 # Overview
 
-This is the Chroma RGB mod for RUST. This allows a RUST client to control Chroma RGB lighting on Windows. The server runs a mod and a client app (on Windows) handles displaying the lighting.
+This is the Chroma RGB Mod server for RUST. This allows a RUST client to control Chroma RGB lighting on Windows. The server runs a mod and a client app (on Windows) handles displaying the lighting.
+
+You can find the Chroma RGB Mod client for RUST [here](https://github.com/tgraupmann/Cpp_RustChromaModClient).
 
 # Guide
 
