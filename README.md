@@ -146,3 +146,7 @@ client.connect <SERVER_IP_ADDRESS>:28015
 * Gray/Cyan - player connect
 
 * Dark green/dark red - player death
+
+## Support
+
+Contact `Tim Graupmann#0611` on Discord for support.
