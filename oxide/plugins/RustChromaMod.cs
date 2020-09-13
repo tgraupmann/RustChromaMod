@@ -1,31 +1,19 @@
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Oxide.Core;
-using Oxide.Core.Configuration;
-using Oxide.Core.Libraries.Covalence;
-using Oxide.Core.Plugins;
-using Oxide.Game.Rust.Libraries.Covalence;
 using ProtoBuf;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
-using System.Web;
 
 namespace Oxide.Plugins
 {
-	[Info("RustChromaMod", "Razer", "1.0.0")]
+	[Info("RustChromaMod", "Razer", VERSION)]
 	[Description("Detects game events to play Chroma SDK lighting on RUST clients")]
 	public class RustChromaMod : RustPlugin
 	{
-		private int Port
-		{
-			get
-			{
-                return 5000;
-			}
-		}
+		const string VERSION = "1.0.2";
+		const int SERVER_PORT = 5000;
 
 		private bool _mWaitForExit = true;
 		private Thread _mThread = null;
@@ -38,7 +26,7 @@ namespace Oxide.Plugins
 
 		public RustChromaMod()
 		{
-			AddToServerStatus("{0}: Started! {1}", this.GetType(), System.DateTime.Now);
+			AddToServerStatus("{0}: Version={1}: Started! {1}", this.GetType(), VERSION, System.DateTime.Now);
 
 			_mLock = new System.Object();
 			_mPlayerStates = new Dictionary<string, Newtonsoft.Json.Linq.JArray>();
@@ -49,7 +37,7 @@ namespace Oxide.Plugins
 
 			try
 			{
-				_mHttpListener.Prefixes.Add(string.Format("http://*:{0}/", Port));
+				_mHttpListener.Prefixes.Add(string.Format("http://*:{0}/", SERVER_PORT));
 				_mHttpListener.Start();
 
 				ThreadStart ts = new ThreadStart(WebWorker);
@@ -172,6 +160,10 @@ namespace Oxide.Plugins
 						{
 							if (string.IsNullOrEmpty(context.Request.Url.LocalPath))
 							{
+							}
+							else if (context.Request.Url.LocalPath.StartsWith("/stop"))
+                            {
+								Unload();
 							}
 							else if (context.Request.Url.LocalPath.StartsWith("/Animations/"))
 							{
@@ -368,9 +360,18 @@ namespace Oxide.Plugins
 				data[PLAYER_STATE_EVENT] = "OnPlayerAttack";
 				data["player"] = attacker.displayName;
 				data["attacker"] = attacker.displayName;
+				if (null != info &&
+					!string.IsNullOrEmpty(info.HitEntity._name))
+				{
+					data["hit_entity"] = info.HitEntity._name;
+				}
+				else
+                {
+					data["hit_entity"] = info.HitEntity.GetType().Name;
+				}
 				AddToPlayerState(playerState, data);
+				AddToServerStatus(@"OnPlayerAttack: data={0}", data.ToString());
 			}
-			AddToServerStatus(@"OnPlayerAttack: Player={0}", attacker.displayName);
 		}
 
 		object OnPlayerDeath(BasePlayer player, HitInfo info)
