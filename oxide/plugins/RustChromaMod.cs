@@ -637,7 +637,7 @@ namespace Oxide.Plugins
 				data["player"] = player.displayName;
 				AddToPlayerState(playerState, data);
 			}
-			AddToServerStatus(@"OnWeaponFired: player={0} projectile={1}", player.displayName, projectile.name);
+			AddToServerStatus(@"OnWeaponFired: player={0} projectile={1}", player.displayName, projectile);
 		}
 
 		#endregion Weapon Game Events
