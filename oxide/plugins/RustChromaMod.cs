@@ -570,6 +570,24 @@ namespace Oxide.Plugins
 				amountToUse);
 		}
 
+		void OnLootEntity(PlayerLoot player, BaseEntity entity)
+		{
+			if (player._baseEntity.IsNpc)
+			{
+				return;
+			}
+			JArray playerState = GetPlayerState(player._baseEntity.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnLootEntity";
+				data["player"] = player._baseEntity.displayName;
+				AddToPlayerState(playerState, data);
+			}
+			AddToServerStatus(@"OnLootEntity: player={0}",
+				player._baseEntity.displayName);
+		}
+
 		#endregion Player Game Events
 
 		#region Map Game Events
