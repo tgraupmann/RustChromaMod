@@ -360,6 +360,18 @@ namespace Oxide.Plugins
 				data[PLAYER_STATE_EVENT] = "OnPlayerAttack";
 				data["player"] = attacker.displayName;
 				data["attacker"] = attacker.displayName;
+				Item item = attacker.GetActiveItem();
+				if (null != item &&
+					null != item.info &&
+					null != item.info.displayName &&
+					!string.IsNullOrEmpty(item.info.displayName.english))
+                {
+					data["active_item"] = item.info.displayName.english;
+                }
+				else
+                {
+					data["active_item"] = string.Empty;
+				}
 				if (null != info &&
 					!string.IsNullOrEmpty(info.HitEntity._name))
 				{
