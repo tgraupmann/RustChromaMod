@@ -496,8 +496,8 @@ namespace Oxide.Plugins
 				JObject data = new JObject();
 				data[PLAYER_STATE_EVENT] = "OnActiveItemChanged";
 				data["player"] = player.displayName;
-				data["oldItem"] = GetItemDisplayName(oldItem);
-				data["newItem"] = GetItemDisplayName(newItem);
+				data["old_item"] = GetItemDisplayName(oldItem);
+				data["new_item"] = GetItemDisplayName(newItem);
 				AddToPlayerState(playerState, data);
 			}
 			AddToServerStatus(@"OnActiveItemChanged: player={0} oldItem={1} newItem={2}",
