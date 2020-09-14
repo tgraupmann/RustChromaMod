@@ -550,7 +550,15 @@ namespace Oxide.Plugins
 
 		void OnItemUse(Item item, int amountToUse)
 		{
+      if (null == item)
+      {
+        return;
+      }
 			BasePlayer player = item.GetOwnerPlayer();
+      if (null == player)
+      {
+        return;
+      }
 			if (player.IsNpc)
 			{
 				return;
@@ -564,11 +572,8 @@ namespace Oxide.Plugins
 				data["item"] = GetItemDisplayName(item);
 				data["amountToUse"] = amountToUse;
 				AddToPlayerState(playerState, data);
+        AddToServerStatus(@"OnItemUse: data={0}", data);
 			}
-			AddToServerStatus(@"OnItemUse: player={0} item={1} amountToUse={2}",
-				player.displayName,
-				GetItemDisplayName(item),
-				amountToUse);
 		}
 
 		void OnLootEntity(PlayerLoot player, BaseEntity entity)
