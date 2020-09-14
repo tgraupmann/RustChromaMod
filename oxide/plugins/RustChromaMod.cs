@@ -291,8 +291,9 @@ namespace Oxide.Plugins
 
 		void AddToServerStatus(string msg, params object[] format)
 		{
-			_mDebug.AppendFormat(msg, format);
-			_mDebug.AppendLine("<br/>");
+			//uncomment for debugging
+			//_mDebug.AppendFormat(msg, format);
+			//_mDebug.AppendLine("<br/>");
 		}
 
 		void OnPlayerConnected(BasePlayer player)
