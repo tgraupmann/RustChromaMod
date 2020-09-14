@@ -730,9 +730,21 @@ namespace Oxide.Plugins
 				JObject data = new JObject();
 				data[PLAYER_STATE_EVENT] = "OnWeaponFired";
 				data["player"] = player.displayName;
+				Item item = player.GetActiveItem();
+				if (null != item &&
+					null != item.info &&
+					null != item.info.displayName &&
+					!string.IsNullOrEmpty(item.info.displayName.english))
+				{
+					data["active_item"] = item.info.displayName.english;
+				}
+				else
+				{
+					data["active_item"] = string.Empty;
+				}
 				AddToPlayerState(playerState, data);
+				AddToServerStatus(@"OnWeaponFired: player={0} data={1}", player.displayName, data);
 			}
-			AddToServerStatus(@"OnWeaponFired: player={0} projectile={1}", player.displayName, projectile);
 		}
 
 		#endregion Weapon Game Events
