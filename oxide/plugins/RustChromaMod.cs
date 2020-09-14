@@ -479,6 +479,24 @@ namespace Oxide.Plugins
 			return null;
 		}
 
+		object OnPlayerRespawn(BasePlayer player)
+		{
+			if (player.IsNpc)
+			{
+				return null;
+			}
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnPlayerRespawn";
+				data["player"] = player.displayName;
+				AddToPlayerState(playerState, data);
+			}
+			AddToServerStatus(@"OnPlayerRespawn: reviver={0}", player.displayName);
+			return null;
+		}
+
 		string GetItemDisplayName(Item item)
 		{
 			return (item == null || item.info == null || item.info.displayName == null || string.IsNullOrEmpty(item.info.displayName.english)) ? "none" : item.info.displayName.english;
@@ -501,9 +519,55 @@ namespace Oxide.Plugins
 				AddToPlayerState(playerState, data);
 			}
 			AddToServerStatus(@"OnActiveItemChanged: player={0} oldItem={1} newItem={2}",
-			player.displayName,
-			GetItemDisplayName(oldItem),
-			GetItemDisplayName(newItem));
+				player.displayName,
+				GetItemDisplayName(oldItem),
+				GetItemDisplayName(newItem));
+		}
+
+		object OnItemAction(Item item, string action, BasePlayer player)
+		{
+			if (player.IsNpc)
+			{
+				return null;
+			}
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnItemAction";
+				data["player"] = player.displayName;
+				data["item"] = GetItemDisplayName(item);
+				data["action"] = action;
+				AddToPlayerState(playerState, data);
+			}
+			AddToServerStatus(@"OnItemAction: player={0} item={1} action={2}",
+				player.displayName,
+				GetItemDisplayName(item),
+				action);
+			return null;
+		}
+
+		void OnItemUse(Item item, int amountToUse)
+		{
+			BasePlayer player = item.GetOwnerPlayer();
+			if (player.IsNpc)
+			{
+				return;
+			}
+			JArray playerState = GetPlayerState(player.displayName);
+			if (null != playerState)
+			{
+				JObject data = new JObject();
+				data[PLAYER_STATE_EVENT] = "OnItemUse";
+				data["player"] = player.displayName;
+				data["item"] = GetItemDisplayName(item);
+				data["amountToUse"] = amountToUse;
+				AddToPlayerState(playerState, data);
+			}
+			AddToServerStatus(@"OnItemUse: player={0} item={1} amountToUse={2}",
+				player.displayName,
+				GetItemDisplayName(item),
+				amountToUse);
 		}
 
 		#endregion Player Game Events
